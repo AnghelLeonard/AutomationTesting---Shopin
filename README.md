@@ -3,6 +3,9 @@
 You can use this `production-like` app as you consider but it was meant for automation testing (e.g, Protractor, Cypress, Selenium, even unit tests).
 
 ![](https://github.com/AnghelLeonard/AutomationTesting---Shopin/blob/main/Shopin/Shopin/Shopin_1.png)
+![](https://github.com/AnghelLeonard/AutomationTesting---Shopin/blob/main/Shopin/Shopin/Shopin_2.png)
+![](https://github.com/AnghelLeonard/AutomationTesting---Shopin/blob/main/Shopin/Shopin/Shopin_3.png)
+![](https://github.com/AnghelLeonard/AutomationTesting---Shopin/blob/main/Shopin/Shopin/Shopin_4.png)
 
 To run the Shopin app you should follow these steps (after cloning/downloading the repo):
 
