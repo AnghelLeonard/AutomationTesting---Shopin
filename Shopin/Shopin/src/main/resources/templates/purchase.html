@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>        
+        <title>Shopin</title>
+        <th:block sec:authorize="isAuthenticated()">
+            <meta http-equiv="refresh" content="0; url=/cart" />
+            <script type="text/javascript">
+                window.location.href = "/cart";
+            </script>
+        </th:block>        
+
+        <th:block sec:authorize="!isAuthenticated()">
+            <script>
+                var simpleCart_extra = localStorage.getItem("simpleCart_extra");
+                if (!simpleCart_extra) {
+                    window.location.href = "/cart";
+                }
+            </script>    
+        </th:block>    
+
+        <th:block sec:authorize="!isAuthenticated()">
+            <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />       
+            <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+            <!--//theme-style-->
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
+                  Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />        
+        </th:block>
+    </head>
+    <body style="display:none;">    
+        <th:block sec:authorize="isAuthenticated()">            
+            <script type="text/javascript">
+                window.location.href = "/cart";
+            </script>
+        </th:block>
+        <th:block sec:authorize="!isAuthenticated()">
+            <script>
+                var simpleCart_extra = localStorage.getItem("simpleCart_extra");
+                if (!simpleCart_extra) {
+                    window.location.href = "/cart";
+                } else {
+                    syncornot = null;
+                    document.getElementsByTagName('body')[0].style.display = "block";
+                }
+            </script> 
+            <div class="banner-top">
+                <div class="container">
+                    <h1>Choose the method to complete the order</h1>
+                    <em></em>                              
+                </div>
+            </div>      
+            <script src="js/jquery.min.js"></script>
+            <div class="container">
+                <div class="login">
+                    <div class="col-md-6 login-do" style="text-align: center;">
+                        <span style="text-align: left;"><h4><strong>Don't have an account?</strong></h4></span>
+                        <a href="/register"><button type="button" class="btn btn-lg btn-danger" style="width:100%; margin-top: 10px; margin-bottom: 20px;">Make an account</button></a>
+                        <span style="text-align: left;"><h4><strong>Existing customer</strong></h4></span>
+                        <a id="addrId" href="/ordermember"><button type="button" onclick="setAddr();" class="btn btn-lg btn-primary" style="width:100%; margin-top: 10px;">Login</button></a>
+                        <div class="checkbox" style="text-align: left;">                            
+                        </div>
+                    </div>
+                    <div class="col-md-6 login-right" style="text-align: center;">                    
+                        <span style="text-align: left;"><h4><strong>Guest</strong></h4></span>                    
+                        <div class="login-mail" style="width:100%; margin-top: 10px;">
+                            <form>
+                                <input id="emailId" type="text" name="email" placeholder="Email"/>
+                                <i class="glyphicon glyphicon-envelope"></i>
+                                <span id="errorId" style="text-align: left; color: red; font-size: 12px; display: none;"><h6>Invalid email address</h6></span>                    
+                            </form>                                                
+                        </div>                    
+                        <span style="text-align: left;"><h6>* After placing the order it is necessary to receive a confirmation email</h6></span>
+                        <a href="/orderguest"><button type="button" onclick="return isEmail();" class="btn btn-lg btn-primary" style="width:100%; margin-top: 10px;">Continue as a guest</button></a>
+                    </div>
+                </div>
+            </div>  
+            <script>
+                document.getElementById("emailId").value = localStorage.getItem("anonymousUser_email");
+                function isEmail() {
+                    var email = document.getElementById("emailId").value;
+                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    var valid = regex.test(email);
+                    if (!valid) {
+                        document.getElementById("errorId").style.display = "block";
+                    } else {
+                        localStorage.setItem("anonymousUser_email", email);
+                        document.getElementById("errorId").style.display = "none";
+                    }
+                    return valid;
+                }
+
+                function setAddr() {
+                    if (localStorage.getItem("user_addr")) {
+                        document.getElementById("addrId").setAttribute("href", "/ordermember?addr=false");
+                    } else {
+                        document.getElementById("addrId").setAttribute("href", "/ordermember?addr=true");
+                    }
+                }
+            </script>    
+        </th:block>
+    </body>
+</html>

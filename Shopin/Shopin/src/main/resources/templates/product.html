@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Shopin</title>
+        <script th:inline="javascript">
+            cartName = [[${#authentication.name}]];
+            cartName = cartName.replace(/[^a-zA-Z 0-9]+/g, '');
+            cartName = cartName.replace(/\s/g, '');
+            syncornot = null;
+        </script> 
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <!-- Custom Theme files -->
+        <!--theme-style-->
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!--theme-style-->
+        <link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+        <!--//theme-style-->
+        <script src="js/jquery.min.js"></script>
+        <link href="css/form.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="css/addbutton.css" rel="stylesheet" type="text/css" />           
+    </head>
+    <body>
+        <!--header-->
+        <div class="header">
+            <div class="container">
+                <div class="head">
+                    <div class=" logo">
+                        <a href="/"><img src="images/logo.png" alt=""/></a>	
+                    </div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="container">
+                    <div class="col-sm-7 col-md-offset-2  header-login">
+                        <ul >
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                            <li><a onclick="cartForm();" style="cursor:pointer;">Cart</a></li>
+                            <li>
+                                <div style="color: sienna;" class="vizi">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Login:
+                                    <strong sec:authorize="!isAuthenticated()">
+                                        <a style="color: tomato;" href="/login">
+                                            guest
+                                        </a>
+                                    </strong>
+                                    <strong sec:authorize="isAuthenticated()">
+                                        <a style="color: tomato;" href="#">
+                                            <span sec:authentication="name"></span>
+                                        </a>
+                                        &nbsp;|&nbsp;
+                                        <a style="color: whitesmoke; cursor:pointer;" onclick="logoutJS();">
+                                            Logout
+                                        </a>
+                                    </strong>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-3 header-social">
+                        <ul>
+                            <li><a href="#"><i></i></a></li>
+                            <li><a href="#"><i class="ic1"></i></a></li>
+                            <li><a href="#"><i class="ic3"></i></a></li>                            
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div class="head-top">
+
+                    <div class="col-sm-8 col-md-offset-2 h_menu4">
+                        <nav class="navbar nav_bottom" role="navigation">
+
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                <ul class="nav navbar-nav nav_1">
+                                    <li><a class="color" href="/">Home</a></li>
+
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Women<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Men<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me1.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Children<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me2.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>                                    
+                                    <li ><a class="color6" href="/contact">Contact Us</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+
+                        </nav>
+                    </div>                    
+                    <div class="col-sm-2 search-right" th:if="${thisproduct ne null}">
+                        <ul class="heart">                           
+                            <li><a class="play-icon popup-with-zoom-anim vizi" style="font-size: 16px; color: darkslategrey; text-decoration: none;" href="#small-dialog">Search&nbsp;<i class="glyphicon glyphicon-search"> </i></a></li>
+                        </ul>
+                        <div class="cart box_1" style="cursor: pointer; text-decoration: none !important;">
+                            <a onclick="cartForm();">
+                                <h3> 
+                                    <div class="total">
+                                        <span id="totalCartId" data-toggle="tooltip" data-placement="bottom" data-trigger="manual" title="Product&nbsp;added" class="simpleCart_total"></span>
+                                    </div>
+                                    <img src="images/cart.png" alt=""/>
+                                </h3>
+                            </a>
+                            <p><a href="javascript:;" id="emptyCartId" class="simpleCart_empty" 
+                                  onclick="if (selectedItem) {
+                                      document.getElementById('addBtnId').className = 'buybtn add-to item_add';
+                                      }
+                                      document.getElementById('osutaId').style.visibility = 'hidden';
+                                      document.getElementById('totalId').style.visibility = 'hidden';
+                                      document.getElementById('fiveId').style.visibility = 'hidden';">Clear cart</a></p>
+
+                        </div>
+                        <div class="clearfix"> </div>											
+
+                        <!-- pop-up-box -->					  
+                        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+                        <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+                        <!-- //pop-up-box -->
+                        <div id="small-dialog" class="mfp-hide">
+                            <div class="search-top">
+                                <div class="login-search">
+                                    <input type="submit" value="" onclick="document.location = 'http://' + document.location.host + '/products/1?search=' + $('#searchId').val()"/>
+                                    <input type="text" id="searchId" value="Search products ..." onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Search..';
+                                        }"/>		
+                                </div>
+                                <p>Shopin</p>
+                            </div>				
+                        </div>
+                        <script th:inline="javascript">
+                            function cartForm() {
+                            var serialize_items = "";
+                            simpleCart.each(function (item) {
+                            if (serialize_items.indexOf(item.get("msku")) == - 1) {
+                            serialize_items = serialize_items + item.get("msku") + ",";
+                            }
+                            });
+                            if (serialize_items.length > 0) {
+                            serialize_items = serialize_items.substring(0, serialize_items.length - 1);
+                            document.getElementById("cartContentId").value = serialize_items;
+                            document.forms["cartFormId"].submit();
+                            } else {
+                            document.getElementById("msgPrincipalId").innerHTML = "Your shopping cart is empty !";
+                            document.getElementById("myBtn").click();
+                            }
+                            }
+                        </script>
+                        <script th:inline="javascript">
+                            $(document).ready(function () {
+
+                            localStorage.removeItem("simpleCart_extra");
+                            $(function () {
+                            $('[data-toggle="tooltip"]').tooltip()
+                            })                            
+                            plafon = 10000;
+                            maxp = 100;
+                            maxop = 5;
+                            ////
+
+                            selectedItem = null;
+                            selectedId = null;
+                            document.getElementById("addBtnId").className += " disabled";
+                            simpleCart.currency({code: "EUR", name: "EUR", symbol: ""});
+                            /*<![CDATA[*/
+                            var msku = [[${thissku
+                            }
+                            ]];
+                            var curprice = [[${#numbers.formatDecimal(thisproduct.price - (thisproduct.price * thisproduct.discount) / 100, 0, 2, 'POINT')
+                            }
+                            ]];
+                            /*]]>*/
+
+                            simpleCart.bind('beforeAdd', function (item) {
+
+                            var quantity_i = parseInt($("#quantityId").text());
+                            var allquantity = simpleCart.quantity();
+                            var hold_qi = quantity_i;
+                            if ((allquantity + quantity_i) > maxp) {
+                            document.getElementById("msgPrincipalId").innerHTML = "<strong>We're sorry </strong>, but you cannot place orders with more than " + maxp + " products.";
+                            document.getElementById("subMsgId").innerHTML = "We automatically rebalanced the cart so we added " + (maxp - allquantity) + " articles from " + quantity_i + " selected.";
+                            document.getElementById("myBtn").click();
+                            quantity_i = maxp - allquantity;
+                            }
+
+                            var total = simpleCart.total();
+                            var price = item.get('price');
+                            if (total + (quantity_i * price) > plafon) {
+                            if (hold_qi != quantity_i) {
+                            document.getElementById("msgPrincipalId").innerHTML += "<br/><strong>Also</strong>, you cannot place orders larger than " + plafon + " EUR.";
+                            document.getElementById("subMsgId").innerHTML += "<br/>Unfortunately, even after rebalancing, the value of the basket exceeds <strong>" + parseFloat(((total + (quantity_i * price)) - plafon)).toFixed(2) + " EUR</strong> the allowed value.";
+                            } else {
+                            document.getElementById("msgPrincipalId").innerHTML = "<strong>We're sorry</strong>, but you cannot place orders larger than " + plafon + " EUR.";
+                            document.getElementById("subMsgId").innerHTML = "The value of the shopping cart would in this case become greater than " + plafon + " EUR with <strong>" + parseFloat(((total + (quantity_i * price)) - plafon)).toFixed(2) + " EUR</strong>";
+                            }
+                            document.getElementById("myBtn").click();
+                            return false;
+                            }
+
+                            item.set("msku", msku);
+                            item.set("msize", selectedItem);
+                            item.quantity(quantity_i);
+                            });
+                            simpleCart.bind("afterAdd", function (item) {
+
+                            var quantity = item.get('quantity');
+                            if (quantity >= maxop) {
+                            item.quantity(maxop);
+                            simpleCart.update();
+                            document.getElementById("addBtnId").className += " disabled";
+                            document.getElementById("fiveId").style.visibility = "visible";
+                            }
+
+                            var total = simpleCart.total();
+                            if ((total + item.get('price')) > plafon) {
+                            document.getElementById("addBtnId").className += " disabled";
+                            document.getElementById("totalId").style.visibility = "visible";
+                            if (selectedId) {
+                            document.getElementById(selectedId).removeAttribute("data-size-selected");
+                            document.getElementById(selectedId).style.backgroundColor = "white";
+                            selectedItem = null;
+                            selectedId = null;
+                            }
+                            }
+
+                            var allquantity = simpleCart.quantity();
+                            if ((allquantity + 1) > maxp) {
+                            document.getElementById("addBtnId").className += " disabled";
+                            document.getElementById("osutaId").style.visibility = "visible";
+                            if (selectedId) {
+                            document.getElementById(selectedId).removeAttribute("data-size-selected");
+                            document.getElementById(selectedId).style.backgroundColor = "white";
+                            selectedItem = null;
+                            selectedId = null;
+                            }
+                            }
+                            });
+                            simpleCart.bind('ready', function () {
+                            var items = simpleCart.find({msku: msku});
+                            if (items.length >= 1) {
+                            /*<![CDATA[*/
+                            for (i = 0; i < items.length; i++) {
+                            /*]]>*/
+                            var item = items[i];
+                            if (curprice != item.get("price")) {
+
+                            if (curprice > item.get("price")) {
+
+                            document.getElementById("msgPrincipalId").innerHTML = "<strong>We're sorry</strong>, but the price of this product has risen by " + parseFloat((curprice - item.get('price'))).toFixed(2) + " EUR.";
+                            var getquantity = item.quantity();
+                            var copy_getquantity = getquantity;
+                            var subtotal = simpleCart.total();
+                            var undertotal = subtotal - (getquantity * item.get("price"));
+                            if (((curprice * getquantity) + undertotal) > plafon) {
+                            if (items.length == 1) {
+                            while (((curprice * getquantity) + undertotal) > plafon) {
+                            getquantity--;
+                            }
+
+                            if (getquantity > 0) {
+                            item.quantity(getquantity);
+                            simpleCart.update();
+                            document.getElementById("msgPrincipalId").innerHTML += "<br/> Because the new price exceeds the maximum amount of " + plafon + " EUR per order, we automatically rebalanced the cart by decreasing the number of items of this product from " + copy_getquantity + " to " + getquantity + ".";
+                            document.getElementById("subMsgId").innerHTML = "We have automatically updated the price of this product in your cart. <br/>Please check!";
+                            } else {
+                            item.remove();
+                            simpleCart.update();
+                            document.getElementById("msgPrincipalId").innerHTML += "<br/> Because the new price exceeds the maximum amount of " + plafon + " EUR per order, we automatically rebalanced the cart by removing this product."
+                            }
+                            } else {
+                            document.getElementById("msgPrincipalId").innerHTML += "<br/> Because the new price exceeds the maximum amount of " + plafon + " EUR per order please update your cart according to your preferences.";
+                            }
+                            } else {
+                            document.getElementById("subMsgId").innerHTML = "We have automatically updated the price of this product in your cart. <br/>Please check!";
+                            }
+                            } else {
+                            document.getElementById("msgPrincipalId").innerHTML = "<strong>The price</strong> of this product has been reduced by " + parseFloat((item.get('price') - curprice)).toFixed(2) + " EUR.";
+                            document.getElementById("subMsgId").innerHTML = "We have automatically updated the price of this product in your cart. <br/>Please check!";
+                            }
+
+                            item.set('price', curprice);
+                            simpleCart.update();
+                            document.getElementById("myBtn").click();
+                            }
+
+                            var total = simpleCart.total();
+                            var allquantity = simpleCart.quantity();
+                            if (allquantity >= maxp) {
+                            document.getElementById("addBtnId").className += " disabled";
+                            document.getElementById("osutaId").style.visibility = "visible";
+                            if (selectedId) {
+                            document.getElementById(selectedId).removeAttribute("data-size-selected");
+                            document.getElementById(selectedId).style.backgroundColor = "white";
+                            selectedItem = null;
+                            selectedId = null;
+                            }
+                            }
+                            if (total > plafon || (total + item.get('price')) > plafon) {
+                            document.getElementById("addBtnId").className += " disabled";
+                            document.getElementById("totalId").style.visibility = "visible";
+                            if (selectedId) {
+                            document.getElementById(selectedId).removeAttribute("data-size-selected");
+                            document.getElementById(selectedId).style.backgroundColor = "white";
+                            selectedItem = null;
+                            selectedId = null;
+                            }
+                            }
+                            }
+                            }
+                            });
+                            $('.popup-with-zoom-anim').magnificPopup({
+                            type: 'inline',
+                                    fixedContentPos: false,
+                                    fixedBgPos: true,
+                                    overflowY: 'auto',
+                                    closeBtnInside: true,
+                                    preloader: false,
+                                    midClick: true,
+                                    removalDelay: 300,
+                                    mainClass: 'my-mfp-zoom-in'
+                            });
+                            });
+                        </script>								
+                    </div>
+                    <div class="clearfix"></div>
+                </div>	
+            </div>	
+        </div>
+        <!--banner-->
+        <div class="banner-top">
+            <div class="container">
+                <h1 th:if="${thisproduct eq null}" th:text="'This'+' '+'product'+' '+'is'+' '+'not'+' '+'available'"></h1>
+                <h1 th:if="${thisproduct ne null}" th:text="Product+' '+details"></h1>
+                <em></em>
+                <h2><a href="/">Home</a><label>/</label><a href="/login">Login</a></h2>
+            </div>
+        </div>
+        <div class="single" style="padding: 1em 0 0;">
+            <div class="container" th:if="${thisproduct eq null}">
+                <div class="alert alert-danger" role="alert" style="text-align: center;">
+                    <strong>We're sorry!</strong> This product is not available (anymore).
+                    <br/><br/>                                
+                    <button onclick="goBack()" type="button" class="btn btn-1 btn-danger"><span class="badge">&lt;&lt;</span>&nbsp;&nbsp;Back</button>
+                    <a href="/"><button type="button" class="btn btn-1 btn-primary">Home</button></a>
+                    <script>
+                        function goBack() {
+                        window.history.back();
+                        }
+                    </script>
+                </div>                        
+            </div>
+            <div class="container" th:if="${thisproduct ne null}">
+                <div class="col-md-12">
+                    <div class="col-md-5 grid">		
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <li th:attr="data-thumb='../../images'+${thisproduct.image}+${thisproduct.sku}+'/main_shopin.jpg'">
+                                    <div class="thumb-image"> <img th:src="@{../../images__${thisproduct.image}____${thisproduct.sku}__/main_shopin.jpg}" data-imagezoom="true" class="img-responsive"/> </div>
+                                </li>
+                                <li th:attr="data-thumb='../../images'+${thisproduct.image}+${thisproduct.sku}+'/a_shopin.jpg'">
+                                    <div class="thumb-image"> <img th:src="@{../../images__${thisproduct.image}____${thisproduct.sku}__/a_shopin.jpg}" data-imagezoom="true" class="img-responsive"/> </div>
+                                </li>
+                                <li th:attr="data-thumb='../../images'+${thisproduct.image}+${thisproduct.sku}+'/b_shopin.jpg'">
+                                    <div class="thumb-image"> <img th:src="@{../../images__${thisproduct.image}____${thisproduct.sku}__/b_shopin.jpg}" data-imagezoom="true" class="img-responsive"/> </div>
+                                </li> 
+                            </ul>
+                        </div>
+                    </div>	
+                    <div class="col-md-7 single-top-in">
+                        <div id="cartShelfId" class="span_2_of_a1 simpleCart_shelfItem">
+                            <h3 th:text="${thisproduct.name}"></h3>
+                            <strong><p class="in-para" th:text="'Cod produs: ' + ${thisproduct.sku}"></p></strong>
+                            <div class="price_single">
+                                <span class="reducedfrom item_price" th:text="(${#numbers.formatDecimal(thisproduct.price - (thisproduct.price * thisproduct.discount)/100, 0, 2, 'POINT')} + ' EUR')"></span>
+                                <span class="reducedfrom" th:if="${thisproduct.discount gt 0}" th:text="' (-' + ${thisproduct.discount} + '%)'"></span>
+                                <div id="fiveId" style="visibility: hidden; float:right; margin-top: 10px;"><h5>You already have 5 items of this product in your cart</h5></div>
+                                <div id="osutaId" style="visibility: hidden; float:right; margin-top: 10px;"><h5>You already have 100 products in your cart</h5></div>
+                                <div id="totalId" style="visibility: hidden; float:right; margin-top: 10px;"><h5>You can no longer order this product because the limit of 10000 EUR per order is exceeded</h5></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <!--masuri-->                            
+                            <div>  
+                                <p style="padding:5px; font-size: 18px;"><strong>Size</strong></p>
+                                <ul class="tag-in">
+                                    <li th:each="item,no:${#strings.arraySplit(thisproduct.sizes,'_')}">
+                                        <a th:attr="id='id-' + ${no.count}" th:data1="${no.count}" th:data2="${no.size}" th:data3="${item}" th:onclick="selectSize(this.getAttribute('data1'), this.getAttribute('data2'), this.getAttribute('data3'));" style="cursor: pointer;" th:text="${#strings.substring(item,0,#strings.length(item)-2)}"></a>                                        
+                                    </li>                                    
+                                </ul>                                                
+                                <script th:inline="javascript">
+                                    function selectSize(id, sizeit, marime) {
+
+                                    selectedItem = null;
+                                    selectedId = null;
+                                    var idid = "id-" + id;
+                                    var totalidv = $("#totalId").css("visibility");
+                                    var osutaidv = $("#osutaId").css("visibility");
+                                    if (totalidv == "visible" || osutaidv == "visible") {
+                                    document.getElementById("addBtnId").className += " disabled";
+                                    return;
+                                    }
+
+                                    var attr = document.getElementById(idid).hasAttribute('data-size-selected');
+                                    if (attr) {
+                                    document.getElementById(idid).removeAttribute("data-size-selected");
+                                    document.getElementById(idid).style.backgroundColor = "white";
+                                    selectedItem = null;
+                                    selectedId = null;
+                                    document.getElementById("addBtnId").className += " disabled";
+                                    document.getElementById("fiveId").style.visibility = "hidden";
+                                    } else {
+                                    document.getElementById(idid).setAttribute("data-size-selected", "T");
+                                    document.getElementById(idid).style.backgroundColor = "lightgray";
+                                    selectedItem = marime;
+                                    selectedId = idid;
+                                    var items = simpleCart.find({msize: marime});
+                                    if (items.length >= 1) {
+                                    var item = items[0];
+                                    if (item.quantity() >= maxop) {
+                                    document.getElementById("addBtnId").className += " disabled";
+                                    document.getElementById("fiveId").style.visibility = "visible";
+                                    } else {
+                                    /*<![CDATA[*/
+                                    if (item.quantity() < maxop) {
+                                    /*]]>*/
+                                    document.getElementById("addBtnId").className = "buybtn add-to item_add";
+                                    document.getElementById("fiveId").style.visibility = "hidden";
+                                    }
+                                    }
+                                    } else {
+                                    document.getElementById("addBtnId").className = "buybtn add-to item_add";
+                                    document.getElementById("fiveId").style.visibility = "hidden";
+                                    }
+
+                                    // deselect others
+                                    /*<![CDATA[*/
+                                    for (i = 1; i <= sizeit; i++) {
+                                    /*]]>*/
+                                    if (i != id) {
+                                    document.getElementById("id-" + i).removeAttribute("data-size-selected");
+                                    document.getElementById("id-" + i).style.backgroundColor = "white";
+                                    }
+                                    }
+                                    }
+                                    }
+                                </script>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="quantity" style="width: 100%;"> 
+                                <div class="quantity-select" style="float:left !important; margin-top: 10px;">                           
+                                    <div class="entry value-minus">&nbsp;</div>
+                                    <div id="quantityId" class="entry value">1</div>
+                                    <div id="plusBtnId" class="entry value-plus active">&nbsp;</div>
+                                </div>
+
+                                <!--add to cart-->  
+                                <div style="float:right !important;">                                
+                                    <a id="addBtnId" href="#" class="buybtn add-to item_add" onclick="$('#totalCartId').tooltip('show'); setTimeout(function(){$('#totalCartId').tooltip('hide'); }, 2000);">
+                                        <span class="buybtn-text">Add To Cart</span> 
+                                        <span class="buybtn-hidden-text" th:text="(${#numbers.formatDecimal(thisproduct.price - (thisproduct.price * thisproduct.discount)/100, 0, 2, 'POINT') + ' EUR'})"></span>
+                                        <span class="buybtn-image"><span></span></span>
+                                    </a>                                     
+                                </div>
+                            </div>                                         
+                            <!--quantity-->
+                            <script>
+                                $('.value-plus').on('click', function () {
+
+                                var divUpd = $(this).parent().find('.value');
+                                /*<![CDATA[*/
+                                if (parseInt(divUpd.text(), 10) < maxop) {
+                                /*]]>*/
+                                newVal = parseInt(divUpd.text(), 10) + 1;
+                                divUpd.text(newVal);
+                                }
+                                if (parseInt(divUpd.text(), 10) >= maxop) {
+                                var plusBtn = document.getElementById("plusBtnId");
+                                plusBtn.className += " disabled";
+                                }
+                                });
+                                $('.value-minus').on('click', function () {
+                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+                                var plusBtn = document.getElementById("plusBtnId");
+                                plusBtn.className = "entry value-plus active";
+                                if (newVal >= 1)
+                                        divUpd.text(newVal);
+                                });
+                            </script>                                                                               
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="tab-head">
+                            <nav class="nav-sidebar">
+                                <ul class="nav tabs">
+                                    <li class="active"><a href="#tab1" data-toggle="tab">Product details</a></li>
+                                    <li class=""><a href="#tab2" data-toggle="tab">Delivery and payment</a></li> 
+                                    <li class=""><a href="#tab3" data-toggle="tab">Return and warranty</a></li>  
+                                </ul>
+                            </nav>
+                            <div class="tab-content one">
+                                <div class="tab-pane active text-style" id="tab1">
+                                    <div class="facts">
+                                        <div th:with="desc=${#strings.arraySplit(thisproduct.description,'@')}">
+                                            <h3 th:text="${desc[0]} + ': '"> </h3>    
+                                            <div th:with="headers=${#strings.arraySplit(desc[1],'#')}">
+                                                <ul>
+                                                    <li th:each="item,no : ${headers}" th:if="${no.index gt 0}" th:text="'- ' + ${item}"></li>
+                                                </ul>
+                                            </div>
+                                            <h3 th:text="${desc[2]} + ': '"> </h3>
+                                            <div th:with="headers=${#strings.arraySplit(desc[3],'#')}">
+                                                <ul>
+                                                    <li th:each="item,no : ${headers}" th:if="${no.index gt 0}" th:text="'- ' + ${item}"></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane text-style" id="tab2">
+                                    <div class="facts">									
+                                        <p > Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections </p>
+                                        <ul >
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Multimedia Systems</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Digital media adapters</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Set top boxes for HDTV and IPTV Player  </li>
+                                        </ul>
+                                    </div>	
+
+                                </div>
+                                <div class="tab-pane text-style" id="tab3">
+                                    <div class="facts">
+                                        <p > There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined </p>
+                                        <ul>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Research</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Design and Development</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Porting and Optimization</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>System integration</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Verification, Validation and Testing</li>
+                                            <li><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Maintenance and Support</li>
+                                        </ul>     
+                                    </div>	
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>	
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="col-md-3 footer-middle-in">
+                        <a href="/"><img src="images/log.png" alt=""/></a>
+                        <p>Explore the trends and buy pieces from the hottest collections, from jackets, jeans and dresses to sports blouses, knitwear, T-shirts and much more - available for you to create the perfect outfit.</p>
+                    </div>
+
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Support and assistance</h6>
+                        <ul class=" in">
+                            <li><a href="404.html">About Us</a></li>
+                            <li><a href="/contact">Payment methods</a></li>
+                            <li><a href="#">Terms and conditions</a></li>
+                            <li><a href="/contact">Delivery options</a></li>
+                        </ul>
+                        <ul class="in in1">
+                            <li><a href="/login">Register</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="wishlist.html">Guarantee</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Tags</h6>
+                        <ul class="tag-in">
+                            <li><a href="#">Shirts</a></li>
+                            <li><a href="#">Coats</a></li>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Pants</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Boots</a></li>
+                        </ul>
+                    </div>
+                    <!--
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Newsletter</h6>
+                        <span>Please enter your email address</span>
+                        <form>
+                            <input type="text" value="E-mail" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                this.value = 'E-mail';
+                                }"/>
+                            <input type="submit" value="Subscribe"/>
+                        </form>
+                    </div>
+                    -->
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+           <div class="footer-bottom">
+                <div class="container">
+                    <ul class="footer-bottom-top">
+                        <!--
+                        <li><a href="#"><img src="images/f1.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f2.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f3.png" class="img-responsive" alt=""/></a></li>
+                        -->
+                    </ul>
+                    <p class="footer-class">&copy; 2025 All rights reserved </p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" style="width: 0px; height: 0px; visibility: hidden;"></button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Shopin</h2>
+                </div>
+                <div class="modal-body">
+                    <p id="msgPrincipalId"></p>                                        
+                    <p id="subMsgId"></p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Thank you for understanding!</h3>
+                </div>
+            </div>
+        </div>                
+
+        <form id="cartFormId" method="post" th:action="@{/cart}" th:object="${cartItems}" style="width: 0px; height: 0px; visibility: hidden;">
+            <input id="cartContentId" type="hidden" th:field="*{items}" th:value="*{items}"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+
+        <!--//footer-->
+        <script src="js/imagezoom.js"></script>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script defer="true" src="js/jquery.flexslider.js"></script>
+        <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+
+        <script>
+                                // Can also be used with $(document).ready()
+                                $(window).load(function () {
+                                $('.flexslider').flexslider({
+                                animation: "slide",
+                                        controlNav: "thumbnails"
+                                });
+                                });
+        </script>
+
+        <script>
+            if (document.getElementById("totalCartId") != null) {
+            document.getElementById("totalCartId").setAttribute("class", cartName + "_total");
+            }
+            if (document.getElementById("emptyCartId") != null) {
+            document.getElementById("emptyCartId").setAttribute("class", cartName + "_empty");
+            }
+            if (document.getElementById("cartShelfId") != null) {
+            document.getElementById("cartShelfId").setAttribute("class", cartName + "_shelfItem");
+            } 
+        </script>
+        <script src="js/simpleCart.min.js"></script>
+        <!-- slide -->
+        <script src="js/bootstrap.min.js"></script>        
+
+        <script src="js/modal.js"></script>           
+        <script>
+            function logoutJS() {
+            document.forms["logoutForm"].submit();
+            }
+        </script>
+        <form id="logoutForm" th:action="@{/logout}" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </body>
+</html>

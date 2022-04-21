@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Shopin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <h3>Please check the following suspicious data:</h3>
+        <hr/>
+        <div th:text="${data}">-</div><br/>        
+        <hr/>
+        <span th:text="${#temporals.format(#temporals.createNow(), 'dd-MMM-yyyy HH:mm')}">today</span>
+    </body>
+</html>

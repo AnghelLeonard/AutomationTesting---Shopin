@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Administration page</title> 
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/bootbox.min.js"></script>
+        <script src="../js/admin.js"></script>        
+    </head>
+    <body>                
+        <a href="/x10qerK0/master">
+            <button type="button" style="font-size: 20px; color: white; background-color: blue;">Back to the main page</button>
+        </a>
+        <input id="successId" style="font-size: 18px; color: blue; text-align: center;" type="text" name="success" th:value="${success}" disabled="true" readonly="readonly"/>        
+        <form id="addProductFormId" th:action="@{/x10qerK0/add}" method="post">
+            <input id="productFinalId" name="product" type="hidden" th:value="${product}"/>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <table align="left" width="95%">
+                <tr colspan="2">
+                    <td></td>
+                    <td align="center"><h2>Add product</h2></td>
+                </tr>
+                <tr colspan="2">
+                    <td></td>
+                    <td><h4><div align="center" id="errorId" style="color:#FF0000"></div></h4></td>
+                </tr>
+                <tr>
+                    <td align="right" style="width:200px;">Name:</td>
+                    <td><input id="numeId" type="text" name="nume" style="width: 100%;"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Product code:</td>
+                    <td><input id="codId" type="text" name="nume" style="width: 100%;"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Price:</td>
+                    <td><input id="pretId" type="text" name="nume" style="width: 100%;"/></td>
+                </tr>
+                <tr>
+                    <td align="right">Choose category:</td>
+                    <td>
+                        <select id="categoryId" name="category">
+                            <option value="1|/f/im/">Sweatshirts - women</option>
+                            <option value="2|/f/im/">Jeans - women</option>
+                            <option value="3|/f/im/">Shirts - women</option>
+                            <option value="4|/f/im/">Pantyhose - women</option>
+                            <option value="5|/f/im/">Tights and socks - women</option>
+                            <option value="6|/f/im/">Skirts - women</option>
+                            <option value="7|/f/im/">Jackets and coats - women</option>
+                            <option value="8|/f/im/">Home clothes - women</option>
+                            <option value="9|/f/im/">Tight-fitting pants - women</option>
+                            <option value="10|/f/im/">Sweaters and cardigans - women</option>
+                            <option value="11|/f/im/">Dresses - women</option>
+                            <option value="12|/f/im/">Jackets - women</option>
+                            <option value="13|/f/im/">Jumpsuits - women</option>
+                            <option value="14|/f/im/">Bras - women</option>
+                            <option value="15|/f/im/">Tops - women</option>
+                            <option value="16|/f/im/">T-shirts - women</option>													 
+                            <option value="21|/f/in/">Boots - women</option>
+                            <option value="22|/f/in/">Short boots - women</option>
+                            <option value="23|/f/in/">Shoes - women</option>
+                            <option value="24|/f/in/">Sport shoes - women</option>
+                            <option value="25|/f/in/">Casual shoes - women</option>
+                            <option value="31|/f/ac/">Jewelry - women</option>
+                            <option value="32|/f/ac/">Watches - women</option>
+                            <option value="33|f/ac/">Belts - women</option>
+                            <option value="34|/f/ac/">Scarves and shawls - women</option>
+                            <option value="35|/f/ac/">Sunglasses - women</option>
+                            <option value="36|/f/ac/">Glasses frames - women</option>
+                            <option value="37|/f/ac/">Hats and caps - women</option>
+                            <option value="38|/f/ac/">Wallets and keychains - women</option>
+                            <option value="46|/f/ac/">Handbags - women</option>
+                            <option value="47|/f/ac/">Shoulder bags - women</option>
+                            <option value="48|/f/ac/">Envelope bags - women</option>
+                            <option value="49|/f/ac/">Shopper bags - women</option>
+                            <option value="50|/f/ac/">Backpacks - women</option>
+                            <option value="51|/f/ac/">Messenger bags - women</option>
+                            <option value="71|/b/im/">Jeans - men</option>
+                            <option value="72|/b/im/">Sweatshirts - men</option>
+                            <option value="73|/b/im/">Shirts - men</option>
+                            <option value="74|/b/im/">Panties and boxers - men</option>
+                            <option value="75|/b/im/">Jackets and coats - men</option>
+                            <option value="76|/b/im/">Hoodies - men</option>
+                            <option value="77|/b/im/">Home clothes - men</option>
+                            <option value="78|/b/im/">Coats - men</option>
+                            <option value="79|/b/im/">Pants - men</option>
+                            <option value="80|/b/im/">Sweaters and cardigans - men</option>
+                            <option value="81|/b/im/">Jackets - men</option>
+                            <option value="82|/b/im/">Socks - men</option>
+                            <option value="83|/b/im/">Trainings - men</option>
+                            <option value="84|/b/im/">T-shirts - men</option>
+                            <option value="85|/b/im/">Vests - men</option>
+                            <option value="95|/b/in/">Boots - men</option>
+                            <option value="96|/b/in/">Shoes - men</option>
+                            <option value="97|/b/in/">Sport shoes - men</option>
+                            <option value="98|/b/in/">Casual shoes - men</option>
+                            <option value="99|/b/in/">Sneakers</option>
+                            <option value="110|/b/ac/">Watches - men</option>
+                            <option value="111|/b/ac/">Belts - men</option>
+                            <option value="112|/b/ac/">Scarves and shawls - men</option>
+                            <option value="113|/b/ac/">Bags - men</option>
+                            <option value="114|/b/ac/">Sport bags - men</option>
+                            <option value="115|/b/ac/">Sunglasses - men</option>
+                            <option value="116|/b/ac/">Wallets and keychains - men</option>
+                            <option value="117|/b/ac/">Hats and caps - men</option>
+                            <option value="118|/b/ac/">Glasses frames - men</option>
+                            <option value="119|/b/ac/">Backpacks - men</option>
+                            <option value="130|/c/im/">Home clothes - children</option>
+                            <option value="131|/c/im/">Jeans - children</option>
+                            <option value="132|/c/im/">Dresses - children</option>
+                            <option value="133|/c/im/">Jackets and coats - children</option>
+                            <option value="134|/c/im/">Underwear - children</option>
+                            <option value="135|/c/im/">Tight-fitting pants - children</option>
+                            <option value="136|/c/im/">Sweaters and cardigans - children</option>
+                            <option value="137|/c/im/">Skirts - children</option>
+                            <option value="138|/c/im/">Clothing sets - children</option>
+                            <option value="139|/c/im/">T-shirts and blouses</option>
+                            <option value="150|/c/in/">Casual shoes - children</option>
+                            <option value="151|/c/in/">Boots - children</option>
+                            <option value="160|/c/ac/">Accessory - children</option>
+                            <option value="161|/c/ac/">Bags - children</option>
+                            <option value="162|/c/ac/">Hats and caps - children</option>
+                            <option value="163|/c/ac/">Scarves and shawls - children</option>
+                            <option value="164|/c/ac/">Gloves - children</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Add discount:</td>
+                    <td>
+                        <select id="discountId" name="discount">
+                            <option value="0" checked="true">0%</option>
+                            <option value="5">5%</option>
+                            <option value="6">6%</option>
+                            <option value="7">7%</option>
+                            <option value="8">8%</option>
+                            <option value="9">9%</option>
+                            <option value="10">10%</option>
+                            <option value="11">11%</option>
+                            <option value="12">12%</option>
+                            <option value="13">13%</option>
+                            <option value="14">14%</option>
+                            <option value="15">15%</option>
+                            <option value="16">16%</option>
+                            <option value="17">17%</option>
+                            <option value="18">18%</option>
+                            <option value="19">19%</option>
+                            <option value="20">20%</option>
+                            <option value="21">21%</option>
+                            <option value="22">22%</option>
+                            <option value="23">23%</option>
+                            <option value="24">24%</option>
+                            <option value="25">25%</option>
+                            <option value="26">26%</option>
+                            <option value="27">27%</option>
+                            <option value="28">28%</option>
+                            <option value="29">29%</option>
+                            <option value="30">30%</option>
+                            <option value="31">31%</option>
+                            <option value="32">32%</option>
+                            <option value="33">33%</option>
+                            <option value="34">34%</option>
+                            <option value="35">35%</option>
+                            <option value="36">36%</option>
+                            <option value="37">37%</option>
+                            <option value="38">38%</option>
+                            <option value="39">39%</option>
+                            <option value="40">40%</option>
+                            <option value="41">41%</option>
+                            <option value="42">42%</option>
+                            <option value="43">43%</option>
+                            <option value="44">44%</option>
+                            <option value="45">45%</option>
+                            <option value="46">46%</option>
+                            <option value="47">47%</option>
+                            <option value="48">48%</option>
+                            <option value="49">49%</option>
+                            <option value="50">50%</option>
+                            <option value="51">51%</option>
+                            <option value="52">52%</option>
+                            <option value="53">53%</option>
+                            <option value="54">54%</option>
+                            <option value="55">55%</option>
+                            <option value="56">56%</option>
+                            <option value="57">57%</option>
+                            <option value="58">58%</option>
+                            <option value="59">59%</option>
+                            <option value="60">60%</option>
+                            <option value="61">61%</option>
+                            <option value="62">62%</option>
+                            <option value="63">63%</option>
+                            <option value="64">64%</option>
+                            <option value="65">65%</option>
+                            <option value="66">66%</option>
+                            <option value="67">67%</option>
+                            <option value="68">68%</option>
+                            <option value="69">69%</option>
+                            <option value="70">70%</option>
+                            <option value="71">71%</option>
+                            <option value="72">72%</option>
+                            <option value="73">73%</option>
+                            <option value="74">74%</option>
+                            <option value="75">75%</option>
+                            <option value="76">76%</option>
+                            <option value="77">77%</option>
+                            <option value="78">78%</option>
+                            <option value="79">79%</option>
+                            <option value="80">80%</option>
+                            <option value="81">81%</option>
+                            <option value="82">82%</option>
+                            <option value="83">83%</option>
+                            <option value="84">84%</option>
+                            <option value="85">85%</option>
+                            <option value="86">86%</option>
+                            <option value="87">87%</option>
+                            <option value="88">88%</option>
+                            <option value="89">89%</option>
+                            <option value="90">90%</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">The product is on the first page:</td>
+                    <td>
+                        <input type="radio" id="firstpageId" name="firstpage" value="1"/> Da
+                        <input type="radio" name="firstpage" value="0" checked="true"/>Nu<br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">The product is live:</td>
+                    <td>
+                        <input type="radio" id="liveId" name="live" value="1" checked="true"/> Da
+                        <input type="radio" name="live" value="0"/>Nu<br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">Choose the color of the product:</td>
+                    <td>
+                        <div style="background-color:#ffffff; height:21px; width:98px; display:inline-block; border:1px solid;">	
+                            <span><input type="radio" name="culoare" id="colorId" value="a" checked="true"/>White</span></div>
+                        <div style="background-color:#0000cc; height:20px; width:100px; display:inline-block; ">
+                            <span><input type="radio" name="culoare" id="colorId" value="b"/>Blue</span></div> 
+                        <div style="background-color:#000000; height:20px; width:100px; display:inline-block;">
+                            <span style="color:white"><input type="radio" name="culoare" id="colorId" value="c"/>Black</span></div>
+                        <div style="background-color:#d80202; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="d"/>Red</span></div>
+                        <div style="background-color:#ff8cf1; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="e"/>Pink</span></div>
+                        <div style="background-color:#d8b793; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="f"/>Beige</span></div>
+                        <div style="background-color:#5c5d60; height:20px; width:100px; display:inline-block;">
+                            <span style="color:white"><input type="radio" name="culoare" id="colorId" value="g"/>Gray</span></div>
+                        <div style="background-color:#b81f6b; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="h"/>Magenta</span></div>
+                        <div style="background-color:#099b10; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="i"/>Green</span></div>
+                        <div style="background-color:#750c9b; height:20px; width:100px; display:inline-block;">
+                            <span style="color:white"><input type="radio" name="culoare" id="colorId" value="m"/>Mauve</span></div>
+                        <div style="background-color:#602a13; height:20px; width:100px; display:inline-block;">
+                            <span style="color:white"><input type="radio" name="culoare" id="colorId" value="n"/>Brown</span></div>
+                        <div style="background-color:#f24804; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="o"/>Orange</span></div>
+                        <div style="background-color:#7fe6ef; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="p"/>Bleu</span></div>
+                        <div style="background-color:#a1ed09; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="r"/>Lemongrass</span></div>
+                        <div style="background-color:#9b8066; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="s"/>Nude</span></div>
+                        <div style="background-color:#04f2ab; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="t"/>Turquoise</span></div>
+                        <div style="background-color:#fcf82a; height:20px; width:100px; display:inline-block;">
+                            <span><input type="radio" name="culoare" id="colorId" value="x"/>Yellow</span></div>
+                        <div style="background-color:#7c0909; height:20px; width:100px; display:inline-block;">
+                            <span style="color:white"><input type="radio" name="culoare" id="colorId" value="q"/>Garnet</span><br/></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Choose size:</td>
+                    <td>
+                        <input type="radio" name="marime" id="marime1Id" value="id1" onclick="showSizes();"/>General sizes for the house<br/>
+                        <div id="m1" style="display:none;">	
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id1-1"/>S</td>						
+                                    <td style="padding-left: 10px;"><input type="checkbox" name="marime" id="id2-1"/>S-M</td>						
+                                    <td style="padding-left: 10px;"><input type="checkbox" name="marime" id="id3-1"/>M</td>						
+                                    <td style="padding-left: 10px;"><input type="checkbox" name="marime" id="id4-1"/>L</td>						
+                                    <td style="padding-left: 10px;"><input type="checkbox" name="marime" id="id5-1"/>XL</td>						
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(1);">Save</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <input type="radio" name="marime" id="marime2Id" value="id2" onclick="showSizes();"/>Pants and jeans<br/>
+                        <div id="m2" style="display:none;">		
+                            <table style="width:100%;">
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id1-2"/>3XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id2-2"/>3XS-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id3-2"/>XXS</td>						
+                                    <td><input type="checkbox" name="marime" id="id4-2"/>XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id5-2"/>XS-S</td>
+                                    <td><input type="checkbox" name="marime" id="id6-2"/>S</td>						
+                                    <td><input type="checkbox" name="marime" id="id7-2"/>S-M</td>						
+                                    <td><input type="checkbox" name="marime" id="id8-2"/>M</td>						
+                                    <td><input type="checkbox" name="marime" id="id9-2"/>M-L</td>						
+                                    <td><input type="checkbox" name="marime" id="id10-2"/>L</td>
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id11-2"/>L-XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id12-2"/>XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id13-2"/>XL-XXL</td>						
+                                    <td><input type="checkbox" name="marime" id="id14-2"/>XXL</td>						
+                                    <td><input type="checkbox" name="marime" id="id15-2"/>3XL</td>
+                                    <td><input type="checkbox" name="marime" id="id16-2"/>4XL</td>
+                                    <td><input type="checkbox" name="marime" id="id17-2"/>5XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id18-2"/>23</td>	
+                                    <td><input type="checkbox" name="marime" id="id19-2"/>24</td>						
+                                    <td><input type="checkbox" name="marime" id="id20-2"/>25</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id21-2"/>26</td>
+                                    <td><input type="checkbox" name="marime" id="id22-2"/>27</td>						
+                                    <td><input type="checkbox" name="marime" id="id23-2"/>28</td>						
+                                    <td><input type="checkbox" name="marime" id="id24-2"/>29</td>						
+                                    <td><input type="checkbox" name="marime" id="id25-2"/>30</td>						
+                                    <td><input type="checkbox" name="marime" id="id26-2"/>31</td>
+                                    <td><input type="checkbox" name="marime" id="id27-2"/>32</td>					
+                                    <td><input type="checkbox" name="marime" id="id28-2"/>33</td>						
+                                    <td><input type="checkbox" name="marime" id="id29-2"/>34</td>						
+                                    <td><input type="checkbox" name="marime" id="id30-2"/>XXS-L32</td>	
+                                </tr>  
+                                <tr>											
+                                    <td><input type="checkbox" name="marime" id="id31-2"/>XS-L30</td>
+                                    <td><input type="checkbox" name="marime" id="id32-2"/>XL-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id33-2"/>XS-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id34-2"/>XS-S-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id35-2"/>XS-S-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id36-2"/>S-L30</td>												
+                                    <td><input type="checkbox" name="marime" id="id37-2"/>S-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id38-2"/>S-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id39-2"/>S-M-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id40-2"/>S-M-L34</td>	
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id41-2"/>M-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id42-2"/>M-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id43-2"/>M-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id44-2"/>M-L-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id45-2"/>M-L-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id46-2"/>L-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id47-2"/>L-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id48-2"/>XL-L30</td>
+                                    <td><input type="checkbox" name="marime" id="id49-2"/>XL-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id50-2"/>XL-L34</td>	
+                                </tr>  
+                                <tr>	
+                                    <td><input type="checkbox" name="marime" id="id51-2"/>XXL-Short</td>						
+                                    <td><input type="checkbox" name="marime" id="id52-2"/>XXL-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id53-2"/>XXL-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id54-2"/>XXL-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id55-2"/>3XL-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id56-2"/>W24-L27</td>						
+                                    <td><input type="checkbox" name="marime" id="id57-2"/>W24-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id58-2"/>W24-L30</td>
+                                    <td><input type="checkbox" name="marime" id="id59-2"/>W24-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id60-2"/>W24-L34</td>	
+                                </tr>  
+                                <tr>	
+                                    <td><input type="checkbox" name="marime" id="id61-2"/>W25-L26</td>						
+                                    <td><input type="checkbox" name="marime" id="id62-2"/>W25-L27</td>						
+                                    <td><input type="checkbox" name="marime" id="id63-2"/>W25-L28</td>
+                                    <td><input type="checkbox" name="marime" id="id64-2"/>W25-L29</td>
+                                    <td><input type="checkbox" name="marime" id="id65-2"/>W25-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id66-2"/>W25-L31</td>						
+                                    <td><input type="checkbox" name="marime" id="id67-2"/>W25-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id68-2"/>W25-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id69-2"/>W26-L26</td>
+                                    <td><input type="checkbox" name="marime" id="id70-2"/>W26-L27</td>		
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id71-2"/>W26-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id72-2"/>W26-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id73-2"/>W26-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id74-2"/>W26-L31</td>
+                                    <td><input type="checkbox" name="marime" id="id75-2"/>W26-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id76-2"/>W26-L33</td>						
+                                    <td><input type="checkbox" name="marime" id="id77-2"/>W26-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id78-2"/>W26-L35</td>						
+                                    <td><input type="checkbox" name="marime" id="id79-2"/>W27-L26</td>
+                                    <td><input type="checkbox" name="marime" id="id80-2"/>W27-L27</td>
+                                </tr>
+                                <tr> 
+                                    <td><input type="checkbox" name="marime" id="id81-2"/>W27-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id82-2"/>W27-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id83-2"/>W27-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id84-2"/>W27-L31</td>						
+                                    <td><input type="checkbox" name="marime" id="id85-2"/>W27-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id86-2"/>W27-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id87-2"/>W28-L26</td>						
+                                    <td><input type="checkbox" name="marime" id="id88-2"/>W28-L27</td>						
+                                    <td><input type="checkbox" name="marime" id="id89-2"/>W28-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id90-2"/>W28-L29</td>
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id91-2"/>W28-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id92-2"/>W28-L31</td>						
+                                    <td><input type="checkbox" name="marime" id="id93-2"/>W28-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id94-2"/>W28-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id95-2"/>W29-L26</td>
+                                    <td><input type="checkbox" name="marime" id="id96-2"/>W29-L27</td> 
+                                    <td><input type="checkbox" name="marime" id="id97-2"/>W29-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id98-2"/>W29-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id99-2"/>W29-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id100-2"/>W29-L31</td>	
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id101-2"/>W29-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id102-2"/>W29-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id103-2"/>W29-L36</td>						
+                                    <td><input type="checkbox" name="marime" id="id104-2"/>W30-L26</td>						
+                                    <td><input type="checkbox" name="marime" id="id105-2"/>W30-L27</td>						
+                                    <td><input type="checkbox" name="marime" id="id106-2"/>W30-L28</td>
+                                    <td><input type="checkbox" name="marime" id="id107-2"/>W30-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id108-2"/>W30-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id109-2"/>W30-L31</td>						
+                                    <td><input type="checkbox" name="marime" id="id110-2"/>W30-L32</td>	
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id111-2"/>W30-L34</td>
+                                    <td><input type="checkbox" name="marime" id="id112-2"/>W30-L36</td>
+                                    <td><input type="checkbox" name="marime" id="id113-2"/>W31-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id114-2"/>W31-L34</td>						
+                                    <td><input type="checkbox" name="marime" id="id115-2"/>W31-L36</td>						
+                                    <td><input type="checkbox" name="marime" id="id116-2"/>W32-L28</td>						
+                                    <td><input type="checkbox" name="marime" id="id117-2"/>W32-L29</td>
+                                    <td><input type="checkbox" name="marime" id="id118-2"/>W32-L30</td>						
+                                    <td><input type="checkbox" name="marime" id="id119-2"/>W32-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id120-2"/>W32-L34</td>	
+                                </tr>  
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id121-2"/>W33-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id122-2"/>W33-L30</td>
+                                    <td><input type="checkbox" name="marime" id="id123-2"/>W33-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id124-2"/>W33-L34</td>												
+                                    <td><input type="checkbox" name="marime" id="id125-2"/>W33-L38</td>						
+                                    <td><input type="checkbox" name="marime" id="id126-2"/>W34-L29</td>						
+                                    <td><input type="checkbox" name="marime" id="id127-2"/>W34-L31</td>
+                                    <td><input type="checkbox" name="marime" id="id128-2"/>W34-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id129-2"/>W36-L32</td>						
+                                    <td><input type="checkbox" name="marime" id="id130-2"/>W38-L32</td>	
+                                </tr>	  
+                                <tr>											
+                                    <td><input type="checkbox" name="marime" id="id131-2"/>W40-L32</td>
+                                    <td><input type="checkbox" name="marime" id="id132-2"/>W42-L32</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(2);">Save</button></td>
+                                </tr>
+                            </table> 
+                        </div>										
+                        <input type="radio" name="marime" id="marime3Id" value="id3" onclick="showSizes();"/>T-shirts, blouses, shirts and jackets<br/>
+                        <div id="m3" style="display:none;">		
+                            <table style="width:100%;">
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id1-3"/>U</td>						
+                                    <td><input type="checkbox" name="marime" id="id2-3"/>XXS</td>						
+                                    <td><input type="checkbox" name="marime" id="id3-3"/>XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id4-3"/>XS-S</td>						
+                                    <td><input type="checkbox" name="marime" id="id5-3"/>S</td>
+                                    <td><input type="checkbox" name="marime" id="id6-3"/>S-M</td>						
+                                    <td><input type="checkbox" name="marime" id="id7-3"/>M</td>						
+                                    <td><input type="checkbox" name="marime" id="id8-3"/>M-L</td>						
+                                    <td><input type="checkbox" name="marime" id="id9-3"/>L</td>						
+                                    <td><input type="checkbox" name="marime" id="id10-3"/>L-XL</td>
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id11-3"/>XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id12-3"/>XL-XXL</td>						
+                                    <td><input type="checkbox" name="marime" id="id13-3"/>XXL</td>						
+                                    <td><input type="checkbox" name="marime" id="id14-3"/>XXL-3XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id15-3"/>3XL</td>
+                                    <td><input type="checkbox" name="marime" id="id16-3"/>4XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id17-3"/>5XL</td>						
+                                </tr> 	
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(3);">Save</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <input type="radio" name="marime" id="marime4Id" value="id4" onclick="showSizes();"/>Swimwear and beach items<br/>
+                        <div id="m4" style="display:none;">		
+                            <table style="width:100%;">
+                                <tr>					
+                                    <td><input type="checkbox" name="marime" id="id1-4"/>XXS</td>						
+                                    <td><input type="checkbox" name="marime" id="id2-4"/>XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id3-4"/>XS/B</td>						
+                                    <td><input type="checkbox" name="marime" id="id4-4"/>XS/C</td>
+                                    <td><input type="checkbox" name="marime" id="id5-4"/>XS/D</td>						
+                                    <td><input type="checkbox" name="marime" id="id6-4"/>S</td>						
+                                    <td><input type="checkbox" name="marime" id="id7-4"/>S/A</td>						
+                                    <td><input type="checkbox" name="marime" id="id8-4"/>S/B</td>						
+                                    <td><input type="checkbox" name="marime" id="id9-4"/>M</td>
+                                    <td><input type="checkbox" name="marime" id="id10-4"/>L</td>	
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id11-4"/>L/B</td>						
+                                    <td><input type="checkbox" name="marime" id="id12-4"/>XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id13-4"/>XXL</td>						
+                                    <td><input type="checkbox" name="marime" id="id14-4"/>XXL/B</td>						
+                                    <td><input type="checkbox" name="marime" id="id15-4"/>3XL</td>
+                                    <td><input type="checkbox" name="marime" id="id16-4"/>4XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id17-4"/>65</td>		
+                                    <td><input type="checkbox" name="marime" id="id18-4"/>65B</td>	
+                                    <td><input type="checkbox" name="marime" id="id19-4"/>70A</td>	
+                                    <td><input type="checkbox" name="marime" id="id20-4"/>70B</td>	
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id21-4"/>70C</td>						
+                                    <td><input type="checkbox" name="marime" id="id22-4"/>70D</td>						
+                                    <td><input type="checkbox" name="marime" id="id23-4"/>70E</td>						
+                                    <td><input type="checkbox" name="marime" id="id24-4"/>70F</td>						
+                                    <td><input type="checkbox" name="marime" id="id25-4"/>75</td>
+                                    <td><input type="checkbox" name="marime" id="id26-4"/>75A</td>						
+                                    <td><input type="checkbox" name="marime" id="id27-4"/>75B</td>		
+                                    <td><input type="checkbox" name="marime" id="id28-4"/>75C</td>	
+                                    <td><input type="checkbox" name="marime" id="id29-4"/>75D</td>	
+                                    <td><input type="checkbox" name="marime" id="id30-4"/>75E</td>	
+                                </tr> 	
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id31-4"/>75F</td>						
+                                    <td><input type="checkbox" name="marime" id="id32-4"/>80</td>						
+                                    <td><input type="checkbox" name="marime" id="id33-4"/>80A</td>						
+                                    <td><input type="checkbox" name="marime" id="id34-4"/>80B</td>						
+                                    <td><input type="checkbox" name="marime" id="id35-4"/>80C</td>
+                                    <td><input type="checkbox" name="marime" id="id36-4"/>80D</td>						
+                                    <td><input type="checkbox" name="marime" id="id37-4"/>80E</td>		
+                                    <td><input type="checkbox" name="marime" id="id38-4"/>85A</td>	
+                                    <td><input type="checkbox" name="marime" id="id39-4"/>85B</td>	
+                                    <td><input type="checkbox" name="marime" id="id40-4"/>85C</td>	
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id41-4"/>85D</td>						
+                                    <td><input type="checkbox" name="marime" id="id42-4"/>90B</td>							
+                                </tr> 
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(4);">Save</button></td>
+                                </tr>
+                            </table>
+                        </div>									  
+                        <input type="radio" name="marime" id="marime5Id" value="id5" onclick="showSizes();"/>Underwear and home clothes<br/>
+                        <div id="m5" style="display:none;">		
+                            <table style="width:100%;">
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id1-5"/>U</td>						
+                                    <td><input type="checkbox" name="marime" id="id2-5"/>XXS</td>						
+                                    <td><input type="checkbox" name="marime" id="id3-5"/>XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id4-5"/>XS-S</td>						
+                                    <td><input type="checkbox" name="marime" id="id5-5"/>S</td>
+                                    <td><input type="checkbox" name="marime" id="id6-5"/>S-M</td>						
+                                    <td><input type="checkbox" name="marime" id="id7-5"/>M</td>						
+                                    <td><input type="checkbox" name="marime" id="id8-5"/>M-L</td>						
+                                    <td><input type="checkbox" name="marime" id="id9-5"/>L</td>						
+                                    <td><input type="checkbox" name="marime" id="id10-5"/>L-XL</td>
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id11-5"/>XL</td>											
+                                    <td><input type="checkbox" name="marime" id="id12-5"/>XXL</td>												
+                                    <td><input type="checkbox" name="marime" id="id13-5"/>3XL</td>
+                                    <td><input type="checkbox" name="marime" id="id14-5"/>4XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id15-5"/>5XL</td>											
+                                    <td><input type="checkbox" name="marime" id="id16-5"/>19-22</td>						
+                                    <td><input type="checkbox" name="marime" id="id17-5"/>23-26</td>						
+                                    <td><input type="checkbox" name="marime" id="id18-5"/>27-30</td>						
+                                    <td><input type="checkbox" name="marime" id="id19-5"/>31-34</td>
+                                    <td><input type="checkbox" name="marime" id="id20-5"/>35-38</td>	
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id21-5"/>36-37</td>						
+                                    <td><input type="checkbox" name="marime" id="id22-5"/>37-39</td>						
+                                    <td><input type="checkbox" name="marime" id="id23-5"/>37-41</td>						
+                                    <td><input type="checkbox" name="marime" id="id24-5"/>38-39</td>						
+                                    <td><input type="checkbox" name="marime" id="id25-5"/>39-42</td>
+                                    <td><input type="checkbox" name="marime" id="id26-5"/>40-41</td>						
+                                    <td><input type="checkbox" name="marime" id="id27-5"/>42-43</td>		
+                                    <td><input type="checkbox" name="marime" id="id28-5"/>43-46</td>	
+                                    <td><input type="checkbox" name="marime" id="id29-5"/>47-49</td>	
+                                    <td><input type="checkbox" name="marime" id="id30-5"/>47-50</td>	
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id31-5"/>65A</td>						
+                                    <td><input type="checkbox" name="marime" id="id32-5"/>65B</td>
+                                    <td><input type="checkbox" name="marime" id="id33-5"/>65C</td>						
+                                    <td><input type="checkbox" name="marime" id="id34-5"/>70A</td>
+                                    <td><input type="checkbox" name="marime" id="id35-5"/>70B</td>						
+                                    <td><input type="checkbox" name="marime" id="id36-5"/>70C</td>						
+                                    <td><input type="checkbox" name="marime" id="id37-5"/>70D</td>						
+                                    <td><input type="checkbox" name="marime" id="id38-5"/>70DD</td>						
+                                    <td><input type="checkbox" name="marime" id="id39-5"/>75A</td>						
+                                    <td><input type="checkbox" name="marime" id="id40-5"/>75B</td>	
+                                </tr> 	
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id41-5"/>75C</td>	
+                                    <td><input type="checkbox" name="marime" id="id42-5"/>75D</td>	
+                                    <td><input type="checkbox" name="marime" id="id43-5"/>75DD</td>	
+                                    <td><input type="checkbox" name="marime" id="id44-5"/>75E</td>											
+                                    <td><input type="checkbox" name="marime" id="id45-5"/>80A</td>						
+                                    <td><input type="checkbox" name="marime" id="id46-5"/>80B</td>						
+                                    <td><input type="checkbox" name="marime" id="id47-5"/>80C</td>
+                                    <td><input type="checkbox" name="marime" id="id48-5"/>80D</td>						
+                                    <td><input type="checkbox" name="marime" id="id49-5"/>80DD</td>		
+                                    <td><input type="checkbox" name="marime" id="id50-5"/>80E</td>
+                                </tr> 
+                                <tr>	
+                                    <td><input type="checkbox" name="marime" id="id51-5"/>80F</td>	
+                                    <td><input type="checkbox" name="marime" id="id52-5"/>85A</td>	
+                                    <td><input type="checkbox" name="marime" id="id53-5"/>85B</td>	
+                                    <td><input type="checkbox" name="marime" id="id54-5"/>85C</td>	
+                                    <td><input type="checkbox" name="marime" id="id55-5"/>85D</td>	
+                                    <td><input type="checkbox" name="marime" id="id56-5"/>85DD</td>											
+                                    <td><input type="checkbox" name="marime" id="id57-5"/>85E</td>						
+                                    <td><input type="checkbox" name="marime" id="id58-5"/>85F</td>						
+                                    <td><input type="checkbox" name="marime" id="id59-5"/>90B</td>
+                                    <td><input type="checkbox" name="marime" id="id60-5"/>90C</td>
+                                </tr> 
+                                <tr>
+                                    <td><input type="checkbox" name="marime" id="id61-5"/>90D</td>		
+                                    <td><input type="checkbox" name="marime" id="id62-5"/>90E</td>	
+                                    <td><input type="checkbox" name="marime" id="id63-5"/>90F</td>	
+                                    <td><input type="checkbox" name="marime" id="id64-5"/>95C</td>	
+                                    <td><input type="checkbox" name="marime" id="id65-5"/>95D</td>	
+                                    <td><input type="checkbox" name="marime" id="id66-5"/>95E</td>	
+                                    <td><input type="checkbox" name="marime" id="id67-5"/>95F</td>	
+                                </tr> 
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(5);">Save</button></td>
+                                </tr>
+                            </table>	
+                        </div>
+                        <input type="radio" name="marime" id="marime6Id" value="id6" onclick="showSizes();"/>Skirts and dresses<br/>
+                        <div id="m6" style="display:none;">		
+                            <table style="width:100%;">
+                                <tr>				
+                                    <td><input type="checkbox" name="marime" id="id1-6"/>XXS</td>						
+                                    <td><input type="checkbox" name="marime" id="id2-6"/>XS</td>						
+                                    <td><input type="checkbox" name="marime" id="id3-6"/>XS-S</td>						
+                                    <td><input type="checkbox" name="marime" id="id4-6"/>S</td>
+                                    <td><input type="checkbox" name="marime" id="id5-6"/>S-M</td>						
+                                    <td><input type="checkbox" name="marime" id="id6-6"/>M</td>						
+                                    <td><input type="checkbox" name="marime" id="id7-6"/>M-L</td>						
+                                    <td><input type="checkbox" name="marime" id="id8-6"/>L</td>						
+                                    <td><input type="checkbox" name="marime" id="id9-6"/>XL</td>								
+                                    <td><input type="checkbox" name="marime" id="id10-6"/>XXL</td>
+                                </tr> 
+                                <tr>									
+                                    <td><input type="checkbox" name="marime" id="id11-6"/>3XL</td>
+                                    <td><input type="checkbox" name="marime" id="id12-6"/>4XL</td>						
+                                    <td><input type="checkbox" name="marime" id="id13-6"/>5XL</td>		
+                                    <td><input type="checkbox" name="marime" id="id14-6"/>24</td>						
+                                    <td><input type="checkbox" name="marime" id="id15-6"/>25</td>
+                                    <td><input type="checkbox" name="marime" id="id16-6"/>26</td>
+                                    <td><input type="checkbox" name="marime" id="id17-6"/>27</td>						
+                                    <td><input type="checkbox" name="marime" id="id18-6"/>28</td>						
+                                    <td><input type="checkbox" name="marime" id="id19-6"/>29</td>						
+                                    <td><input type="checkbox" name="marime" id="id20-6"/>30</td>	
+                                </tr>
+                                <tr>						
+                                    <td><input type="checkbox" name="marime" id="id21-6"/>31</td>
+                                    <td><input type="checkbox" name="marime" id="id22-6"/>32</td>		
+                                </tr> 
+                                <tr>
+                                    <td align="center" colspan="10"><button type="button" onclick="colectSizes(6);">Save</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height: 10px;"></td>
+                </tr>
+                <tr>
+                    <td align="right">Product details:</td><td>
+                        <table>
+                            <tr>
+                                <td>1*: <input id="descId1" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>2*: <input id="descId2" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>3*: <input id="descId3" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>4:&nbsp;&nbsp;&nbsp;<input id="descId4" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>5:&nbsp;&nbsp;&nbsp;<input id="descId5" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>6:&nbsp;&nbsp;&nbsp;<input id="descId6" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                        </table>
+                    </td>	
+                </tr> 
+                <tr>
+                    <td style="height: 10px;"></td>
+                </tr>
+                <tr>
+                    <td align="right">Composition:</td><td><table>
+                            <tr>
+                                <td>1*: <input id="compozitieId1" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                            <tr>
+                                <td>2:&nbsp;&nbsp;&nbsp;<input id="compozitieId2" type="text" name="nume" style="width: 850px;"/></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr> 
+
+                <tr>
+                    <td></td>
+                    <td align="center"><br/><button id="saveId" type="button" style="font-size: 20px; color: white; background-color: red; width:300px; height:50px;" onclick="validareAdaugaProdus();">Save product</button></td>
+                </tr> 
+            </table>
+
+            <input type="hidden" value="" id="marimiId"/>
+            <input type="hidden" value="" id="descriereCompletaId"/>
+        </form>   
+        <script>
+            $("#saveId").on("click", function () {
+                $("body").scrollTop(0);
+            });
+        </script>
+    </body>
+</html>

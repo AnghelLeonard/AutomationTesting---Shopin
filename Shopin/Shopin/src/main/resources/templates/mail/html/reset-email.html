@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Shopin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        Hello,
+        <p th:text="${name}">            
+        </p>
+        <p th:if="${name.length() > 50}">
+            Email is longer than 50 characters!
+        </p>
+        <p>  
+            You have requested a password reset on our site at
+            <span th:text="${#temporals.format(#temporals.createNow(), 'dd-MMM-yyyy HH:mm')}">today</span>
+        </p>    
+        <p>
+            Please access the following link <br/>
+            <code>
+                <span><a th:href="${resetLink}">Reset password</a></span>                   
+            </code>
+        </p>                   
+        and use the following temporary password below:
+        <code>
+            <p th:text="${resetPassword}">
+                password
+            </p>  
+        </code>
+        <hr/>
+        The link will be active until
+        <p th:text="${expiration}">
+            tomorrow
+        </p>           
+        <hr/>
+        <p>
+            Regards, <br />
+            <em>Shopin Team</em>
+        </p>
+    </body>
+</html>

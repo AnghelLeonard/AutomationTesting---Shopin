@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Shopin</title>
+        <script th:inline="javascript">
+            cartName = [[${#authentication.name}]];
+            cartName = cartName.replace(/[^a-zA-Z 0-9]+/g, '');
+            cartName = cartName.replace(/\s/g, '');
+            syncornot = null;
+        </script> 
+        <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <!-- Custom Theme files -->
+        <!--theme-style-->
+        <link href="../../css/style.css" rel="stylesheet" type="text/css" media="all" />	
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!--theme-style-->
+        <link type="text/css" rel="stylesheet" href="../../css/simplePagination.css"/>
+        <link href="../../css/style4.css" rel="stylesheet" type="text/css" media="all" />	
+        <link href="../../css/ion.rangeSlider.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="../../css/normalize.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="../../css/ion.rangeSlider.skinFlat.css" rel="stylesheet" type="text/css" media="all" />
+
+        <!--//theme-style-->
+        <script src="../../js/jquery.min.js"></script>                       
+        <script src="../../js/ion.rangeSlider.min.js"></script>   
+        <script src="../../js/colorsandsizesenum.js"></script>   
+        <script src="../../js/jquery.slimscroll.min.js"></script>
+        <script src="../../js/jquery.query-object.js"></script>        
+    </head>
+    <body>
+        <!--header-->
+        <div class="header">
+            <div class="container">
+                <div class="head">
+                    <div class=" logo">
+                        <a href="/"><img src="../../images/logo.png" alt=""/></a>	
+                    </div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="container">
+                    <div class="col-sm-7 col-md-offset-2  header-login">
+                        <ul >
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                            <li><a onclick="cartForm();" style="cursor:pointer;">Cart</a></li>
+                            <li>
+                                <div style="color: sienna;" class="vizi">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Login:
+                                    <strong sec:authorize="!isAuthenticated()">
+                                        <a style="color: tomato;" href="/login">
+                                            guest
+                                        </a>
+                                    </strong>
+                                    <strong sec:authorize="isAuthenticated()">
+                                        <a style="color: tomato;" href="#">
+                                            <span sec:authentication="name"></span>
+                                        </a>
+                                        &nbsp;|&nbsp;
+                                        <a style="color: whitesmoke; cursor:pointer;" onclick="logoutJS();">
+                                            Logout
+                                        </a>
+                                    </strong>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-3 header-social">
+                        <ul>
+                            <li><a href="#"><i></i></a></li>
+                            <li><a href="#"><i class="ic1"></i></a></li>
+                            <li><a href="#"><i class="ic3"></i></a></li>                            
+                        </ul>
+                    </div>
+                    
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div class="head-top">
+
+                    <div class="col-sm-8 col-md-offset-2 h_menu4">
+                        <nav class="navbar nav_bottom" role="navigation">
+
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                <ul class="nav navbar-nav nav_1">
+                                    <li><a class="color" href="/">Home</a></li>
+
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Women<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=f,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'im'}">
+                                                                    <a th:href="@{1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=f,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'in'}">
+                                                                    <a th:href="@{1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=f,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'ac'}">
+                                                                    <a th:href="@{1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="/images/me.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Men<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=b,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'im'}">
+                                                                    <a th:href="@{1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=b,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'in'}">
+                                                                    <a th:href="@{1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=b,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'ac'}">
+                                                                    <a th:href="@{1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="/images/me1.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Children<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=c,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'im'}">
+                                                                    <a th:href="@{1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=c,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'in'}">
+                                                                    <a th:href="@{1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{1(category=c,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'ac'}">
+                                                                    <a th:href="@{1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="/images/me2.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>                                    
+                                    <li ><a class="color6" href="/contact">Contact Us</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+
+                        </nav>
+                    </div>
+                    <div class="col-sm-2 search-right">
+                        <ul class="heart">                           
+                            <li><a class="play-icon popup-with-zoom-anim vizi" style="font-size: 16px; color: darkslategrey; text-decoration: none;" href="#small-dialog">Search&nbsp;<i class="glyphicon glyphicon-search"> </i></a></li>
+                        </ul>
+                        <div class="cart box_1">
+                            <a onclick="cartForm();" style="cursor:pointer; text-decoration: none !important;">
+                                <h3> 
+                                    <div class="total">
+                                        <span id="totalCartId" class="simpleCart_total"></span>
+                                    </div>
+                                    <img src="../../images/cart.png" alt=""/>
+                                </h3>
+                            </a>
+                            <p><a id="emptyCartId" href="javascript:;" class="simpleCart_empty">Clear cart</a></p>
+
+                        </div>
+                        <div class="clearfix"> </div>                        
+
+                        <!-- pop-up-box -->					  
+                        <link href="../../css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+                        <script src="../../js/jquery.magnific-popup.js" type="text/javascript"></script>
+                        <!-- //pop-up-box -->
+                        <div id="small-dialog" class="mfp-hide">
+                            <div class="search-top">
+                                <div class="login-search">
+                                    <input type="submit" value="" onclick="document.location = 'http://' + document.location.host + '/products/1?search=' + $('#searchId').val()"/>
+                                    <input type="text" id="searchId" value="Search products ..." onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Search..';
+                                        }"/>		
+                                </div>
+                                <p>Shopin</p>
+                            </div>				
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                            localStorage.removeItem("simpleCart_extra");
+                            simpleCart.currency({
+                            code: "EUR",
+                                    name: "EUR",
+                                    symbol: ""
+                            });
+                            $('.popup-with-zoom-anim').magnificPopup({
+                            type: 'inline',
+                                    fixedContentPos: false,
+                                    fixedBgPos: true,
+                                    overflowY: 'auto',
+                                    closeBtnInside: true,
+                                    preloader: false,
+                                    midClick: true,
+                                    removalDelay: 300,
+                                    mainClass: 'my-mfp-zoom-in'
+                            });
+                            });
+                        </script>		                                           
+                    </div>
+                    <div class="clearfix"></div>
+                </div>	
+            </div>	
+        </div>
+        <!--banner-->
+        <div class="banner-top">
+            <div class="container">
+                <h1 th:if="${#lists.size(allproducts) eq 0}" th:text="No+' '+product+' '+found+' '+..."></h1>
+                <h1 th:if="${#lists.size(allproducts) gt 0}" th:text="Products"></h1>
+                <em></em>
+                <h2><a href="/">Home</a><label>/</label><a href="/login">Login</a></h2>
+            </div>
+        </div>                                   
+        <!--content-->
+        <div class="product">                
+            <div class="container" th:if="${#lists.size(allproducts) eq 0}">
+                <div class="alert alert-danger" role="alert" style="text-align: center;">
+                    <strong>We're sorry!</strong> We did not find any products that match the selected criteria.
+                    <br/><br/>                                
+                    <button onclick="goBack()" type="button" class="btn btn-1 btn-danger"><span class="badge">&lt;&lt;</span>&nbsp;&nbsp;Back</button>
+                    <a href="/"><button type="button" class="btn btn-1 btn-primary">Home</button></a>
+                    <script>
+                        function goBack() {
+                        window.history.back();
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="container" th:if="${#lists.size(allproducts) gt 0}">
+                <div class="col-md-3 product-bottom">                                       
+                    <section  class="sky-form">                        
+                        <h4 class="cate" style="margin-top: 15px;">Discounts</h4>                        
+                        <hr style="margin: 0px; padding: 3px;"/>
+                        <div class="row row1 scroll-pane">                            
+                            <div class="col col-4">                                
+                                <label class="radio"><input id="d-0_0" type="radio" name="checkbox" checked="true" onclick="bakeURL('0_0')"/><i></i>Full price</label> 
+                                <label class="radio"><input id="d-1_5" type="radio" name="checkbox" onclick="bakeURL('1_5')"/><i></i>Until - 5%</label>                          
+                                <label class="radio"><input id="d-5_20" type="radio" name="checkbox" onclick="bakeURL('5_20')"/><i></i>5% - 20%</label>
+                                <label class="radio"><input id="d-20_50" type="radio" name="checkbox" onclick="bakeURL('20_50')"/><i></i>20% - 50%</label>
+                                <label class="radio"><input id="d-50_70" type="radio" name="checkbox" onclick="bakeURL('50_70')"/><i></i>50% - 70%</label> 
+                                <label class="radio"><input id="d-70_90" type="radio" name="checkbox" onclick="bakeURL('70_90')"/><i></i>70% - 90%</label>                                 
+
+                                <script th:inline="javascript">
+                                    if (jQuery.query.get("fd")){
+                                    $("#d-" + jQuery.query.get("fd")).prop("checked", true);
+                                    }
+                                </script>
+
+                                <th:block th:if="${param.id eq null}">
+                                    <th:block th:if="${maxallprice ne null}">
+                                        <div style="margin-left:auto !important; margin-right:auto !important; height:auto !important; width:auto !important;">
+                                            <div style="float:left; width:78%;">
+                                                <input type="text" id="maxprice_id" name="maxprice_name" value=""/>                                                                               
+                                            </div>
+                                            <div style="float:left; padding-left: 14px;">
+                                                <ul class="nav nav-pills" role="tablist" style="margin-top: 17px;">        
+                                                    <li role="presentation">
+                                                        <a onclick="bakeURL(null, $('#maxprice_id').data('ionRangeSlider').result.min, $('#maxprice_id').data('ionRangeSlider').result.max, $('#maxprice_id').data('ionRangeSlider').result.from, $('#maxprice_id').data('ionRangeSlider').result.to);">
+                                                            <span class="badge glyphicon glyphicon-ok" style="cursor: pointer; margin: 0px !important; border-radius: 3px !important; background-color: orangered !important;">                                                        
+                                                            </span>
+                                                        </a>
+                                                        <a onclick="jQuery.query = jQuery.query.get('search') ? jQuery.query.remove('search') : jQuery.query; document.location = 'http://' + document.location.host + '/products/1' + jQuery.query.remove('fp');">
+                                                            <span class="badge glyphicon glyphicon-remove" style="cursor: pointer; margin: 0px !important; border-radius: 3px !important; background-color: red !important;">                                                        
+                                                            </span>
+                                                        </a>
+                                                    </li>                                        
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <script th:inline="javascript">
+                                            $("#maxprice_id").ionRangeSlider({
+                                            type: "double",
+                                                    grid: true,
+                                                    min: 10,
+                                                    max:[[${#numbers.formatDecimal(maxallprice, 0, 0, 'POINT')}]],
+                                                    from: 10,
+                                                    prefix: ""
+                                            });
+                                        </script>
+
+                                    </th:block>                                
+                                </th:block>
+                                <th:block th:if="${param.id ne null}" th:with="cid=${param.id[0]}">
+                                    <th:block th:each="category:${categories}" th:if="${category.id} eq ${cid}" th:with="maxprice=${category.maxprice}"> 
+                                        <th:block th:if="${maxprice ne null}">
+                                            <div style="margin-left:auto !important; margin-right:auto !important; height:auto !important; width:auto !important;">
+                                                <div style="float:left; width:78%;">
+                                                    <input type="text" id="maxprice_id" name="maxprice_name" value=""/>                                                                               
+                                                </div>
+                                                <div style="float:left; padding-left: 14px;">
+                                                    <ul class="nav nav-pills" role="tablist" style="margin-top: 12px;">        
+                                                        <li role="presentation">
+                                                            <a onclick="bakeURL(null, $('#maxprice_id').data('ionRangeSlider').result.min, $('#maxprice_id').data('ionRangeSlider').result.max, $('#maxprice_id').data('ionRangeSlider').result.from, $('#maxprice_id').data('ionRangeSlider').result.to);">
+                                                                <span class="badge glyphicon glyphicon-ok" style="margin: 0px !important; border-radius: 3px !important; background-color: orangered !important; cursor: pointer !important;">                                                        
+                                                                </span>
+                                                            </a>
+                                                            <a onclick="document.location = 'http://' + document.location.host + '/products/1' + jQuery.query.remove('fp');">
+                                                                <span class="badge glyphicon glyphicon-remove" style="margin: 0px !important; border-radius: 3px !important; background-color: red !important; cursor: pointer !important;">                                                        
+                                                                </span>
+                                                            </a>
+                                                        </li>                                        
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <script th:inline="javascript">
+                                                $("#maxprice_id").ionRangeSlider({
+                                                type: "double",
+                                                        grid: true,
+                                                        min: 10,
+                                                        max:[[${#numbers.formatDecimal(maxprice, 0, 0, 'POINT')}]],
+                                                        from: 10,
+                                                        prefix: ""
+                                                });
+                                            </script>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                                <script th:inline="javascript">
+                                    if (jQuery.query.get("fp")){
+                                    var range = jQuery.query.get("fp");
+                                    $('#maxprice_id').data('ionRangeSlider').
+                                            update({from:range.substring(0, range.indexOf("_")), to:range.substring(range.indexOf("_") + 1)});
+                                    }
+                                </script>            
+                            </div>                                                        
+                        </div>
+                    </section> 				 				 
+                    <section  class="sky-form">                        
+                        <h4 class="cate" style="margin-top: 15px;">Colors</h4>
+                        <hr style="margin: 0px; padding: 3px;"/>
+                        <div class="row row1 scroll-pane">
+                            <div class="col col-4">                                
+                                <div id="colorsDivs" style="margin-left:auto; margin-right:auto; height:auto; width:auto; padding-top: 10px;"></div>
+                                <th:block th:if="${param.id eq null}">
+                                    <script th:inline="javascript">
+                                        // <![CDATA[
+                                        for (var i in COLORS) {
+                                        var a = document.createElement('a');
+                                        a.setAttribute("onclick", "bakeURL(null, null, null, null, null, '" + i + "')");
+                                        var colorDiv = document.createElement('div');
+                                        colorDiv.id = "id-" + i;
+                                        colorDiv.style.width = "25px";
+                                        colorDiv.style.height = "25px";
+                                        colorDiv.style.margin = "2px";
+                                        colorDiv.style.borderRadius = "5px";
+                                        colorDiv.style.border = "1px solid gray";
+                                        colorDiv.style.cursor = "pointer";
+                                        colorDiv.style.float = "left";
+                                        colorDiv.setAttribute("alt", TEXTS[i]);
+                                        colorDiv.setAttribute("title", TEXTS[i]);
+                                        colorDiv.setAttribute("tooltip", TEXTS[i]);
+                                        colorDiv.style.background = COLORS[i];
+                                        a.appendChild(colorDiv);
+                                        document.getElementById("colorsDivs").appendChild(a);
+                                        $("#id-" + i).addClass("nohover");
+                                        }
+                                        // ]]>
+                                    </script>
+                                </th:block>    
+
+                                <th:block th:if="${param.id ne null}" th:with="cid=${param.id[0]}">
+                                    <th:block th:each="category:${categories}" th:if="${category.id} eq ${cid}" th:with="colorsarray=${category.colors}"> 
+                                        <th:block th:if="${colorsarray eq null}">
+                                            <script th:inline="javascript">
+                                                // <![CDATA[
+                                                document.getElementById("colorsDivs").innerHTML = "<strong>Filter unavailable ...</strong>";
+                                                // ]]>
+                                            </script>
+                                        </th:block>
+                                        <th:block th:if="${colorsarray ne null}" th:with="colors=${#strings.arraySplit(colorsarray,',')}">
+                                            <th:block th:each="color:${colors}">
+                                                <script th:inline="javascript">
+                                                    // <![CDATA[
+                                                    var color = [[${color}]];
+                                                    if (COLORS[color]) {
+                                                    var a = document.createElement('a');
+                                                    a.setAttribute("onclick", "bakeURL(null, null, null, null, null, '" + color + "')");
+                                                    var colorDiv = document.createElement('div');
+                                                    colorDiv.id = "id-" + color;
+                                                    colorDiv.style.width = "25px";
+                                                    colorDiv.style.height = "25px";
+                                                    colorDiv.style.margin = "2px";
+                                                    colorDiv.style.borderRadius = "5px";
+                                                    colorDiv.style.border = "1px solid gray";
+                                                    colorDiv.style.cursor = "pointer";
+                                                    colorDiv.style.float = "left";
+                                                    colorDiv.setAttribute("alt", TEXTS[color]);
+                                                    colorDiv.setAttribute("title", TEXTS[color]);
+                                                    colorDiv.setAttribute("tooltip", TEXTS[color]);
+                                                    colorDiv.style.background = COLORS[color];
+                                                    a.appendChild(colorDiv);
+                                                    document.getElementById("colorsDivs").appendChild(a);
+                                                    $("#id-" + color).addClass("nohover");
+                                                    }
+                                                    // ]]>
+                                                </script>
+                                            </th:block>
+                                        </th:block>    
+                                    </th:block>
+                                </th:block>
+                                <script th:inline="javascript">
+                                    if (jQuery.query.get("fc")){
+                                    var range = jQuery.query.get("fc");
+                                    $("#id-" + range.substring(0, 1)).attr("class", "glyphicon glyphicon-share");
+                                    if (range.indexOf("_") !== - 1) {
+                                    $("#id-" + range.substring(range.indexOf("_") + 1)).attr("class", "glyphicon glyphicon-share");
+                                    }
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </section>
+                    <section  class="sky-form">                        
+                        <h4 class="cate" style="margin-top: 15px;">Sizes</h4>
+                        <hr style="margin: 0px; padding: 3px;"/>
+                        <div class="row row1 scroll-pane">                            
+                            <div class="col col-4">                                    
+                                <div id="main-div">
+                                    <div id="sizes1Divs"></div>
+                                    <div id="sizes2Divs"></div>
+                                    <div id="sizes3Divs"></div>
+                                    <div id="sizes4Divs"></div>
+                                    <div id="sizes5Divs"></div>
+                                    <div id="sizes6Divs"></div>                              
+                                </div>
+                                <th:block th:if="${param.id eq null}">
+                                    <script th:inline="javascript">
+                                        // <![CDATA[       
+                                        $('#main-div').slimScroll({
+                                        height: '250px'
+                                        });
+                                        for (var i in SIZES) {
+                                        var spanElem = document.createElement('span');
+                                        var txt = document.createTextNode(NAMES[i].bold());
+                                        spanElem.innerHTML = txt.textContent;
+                                        document.getElementById("sizes" + i + "Divs").appendChild(spanElem);
+                                        var ul = document.createElement('ul');
+                                        ul.setAttribute('class', 'tag-in');
+                                        var THISSIZES = SIZES[i].split("_");
+                                        for (var j = 1; j < THISSIZES.length - 1; j++) {
+                                        var li = document.createElement('li');
+                                        li.style.paddingRight = "5px";
+                                        li.style.cursor = "pointer";
+                                        var a = document.createElement('a');
+                                        a.setAttribute("onclick", "bakeURL(null, null, null, null, null, null, '" + THISSIZES[j] + "')");
+                                        li.id = "id-" + THISSIZES[j];
+                                        var rep = THISSIZES[j].replace(/\q/g, '/');
+                                        rep = rep.substring(0, rep.lastIndexOf("-"));
+                                        if (rep.indexOf("(") === - 1) {
+                                        var txt = document.createTextNode(rep);
+                                        a.appendChild(txt);
+                                        } else {
+                                        var txt = document.createTextNode(rep.substring(0, rep.indexOf("("))); ;
+                                        a.appendChild(txt);
+                                        }
+                                        li.appendChild(a);
+                                        ul.appendChild(li);
+                                        }
+
+                                        document.getElementById("sizes" + i + "Divs").appendChild(ul);
+                                        }
+                                        // ]]>
+                                    </script>
+                                </th:block> 
+
+                                <th:block th:if="${param.id ne null}" th:with="cid=${param.id[0]}">
+                                    <th:block th:each="category:${categories}" th:if="${category.id} eq ${cid}" th:with="thissize=${category.sizeid}"> 
+                                        <th:block th:if="${thissize eq null}">
+                                            <script th:inline="javascript">
+                                                // <![CDATA[
+                                                document.getElementById("sizesDivs").innerHTML = "<strong>Filter unavailable ...</strong>";
+                                                // ]]>
+                                            </script>
+                                        </th:block>
+
+                                        <th:block th:if="${thissize ne null}">
+                                            <script th:inline="javascript">
+                                                // <![CDATA[
+                                                $('#main-div').slimScroll({
+                                                height: '70px'
+                                                });
+                                                var thissize = [[${thissize}]];
+                                                var spanElem = document.createElement('span');
+                                                var txt = document.createTextNode(NAMES[thissize].bold());
+                                                spanElem.innerHTML = txt.textContent;
+                                                document.getElementById("sizes" + thissize + "Divs").appendChild(spanElem);
+                                                var ul = document.createElement('ul');
+                                                ul.setAttribute('class', 'tag-in');
+                                                var THISSIZES = SIZES[thissize].split("_");
+                                                for (var j = 1; j < THISSIZES.length - 1; j++) {
+                                                var li = document.createElement('li');
+                                                li.style.paddingRight = "5px";
+                                                li.style.cursor = "pointer";
+                                                var a = document.createElement('a');
+                                                a.setAttribute("onclick", "bakeURL(null, null, null, null, null, null, '" + THISSIZES[j] + "')");
+                                                li.id = "id-" + THISSIZES[j];
+                                                var rep = THISSIZES[j].replace(/\q/g, '/');
+                                                rep = rep.substring(0, rep.lastIndexOf("-"));
+                                                if (rep.indexOf("(") === - 1) {
+                                                var txt = document.createTextNode(rep);
+                                                a.appendChild(txt);
+                                                } else {
+                                                var txt = document.createTextNode(rep.substring(0, rep.indexOf("(")));
+                                                a.appendChild(txt);
+                                                }
+                                                a.appendChild(txt);
+                                                li.appendChild(a);
+                                                ul.appendChild(li);
+                                                }
+
+                                                document.getElementById("sizes" + thissize + "Divs").appendChild(ul);
+                                                // ]]>
+                                            </script>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                                <hr style="margin: 5px; padding: 0px;"/>
+                                <button type="button" class="btn btn-xs btn-danger" style="margin-bottom: 10px;" onclick="resetFilters();">Clear filters</button>
+
+                                <script th:inline="javascript">
+                                    if (jQuery.query.get("fm")){
+                                    var range = jQuery.query.get("fm");
+                                    if (range.indexOf("_") !== - 1) {
+                                    $("#id-" + range.substring(0, range.indexOf("_")) + " a").css("background-color", "lightgray");
+                                    $("#id-" + range.substring(range.indexOf("_") + 1) + " a").css("background-color", "lightgray");
+                                    } else {
+                                    $("#id-" + range + " a").css("background-color", "lightgray");
+                                    }
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </section>	                    
+                </div>             
+                <!--products-->
+                <div class="col-md-9">                    
+                    <div th:each="product, no : ${allproducts}">
+                        <div th:remove="${no.index % 3 == 0} ? none : tag" class="mid-popular">                                                                   
+                            <div id="cartShelfId" class="col-md-4 item-grid simpleCart_shelfItem">
+                                <div class="mid-pop">
+                                    <div class="pro-img">
+                                        <img th:src="@{../../images__${product.image}____${product.sku}__/main_shopin.jpg}" class="img-responsive" alt=""/>
+                                        <div class="zoom-icon">
+                                            <a th:href="@{../../images__${product.image}____${product.sku}__/main_shopin.jpg}" 
+                                               rel="title" 
+                                               class="picture b-link-stripe b-animate-go thickbox">
+                                                <i class="glyphicon glyphicon-search icon "></i>
+                                            </a>
+                                            <a th:href="@{'/product?sku='+${product.sku}+
+                                               '&amp;name='+${#strings.replace(product.name, ' ', '-')}}"><i class="glyphicon glyphicon-menu-right icon"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="mid-1">
+                                        <div class="women">
+                                            <div class="women-top">
+                                                <span th:if="${#strings.startsWith(product.image,'/b')}" th:text="Man"></span>
+                                                <span th:if="${#strings.startsWith(product.image,'/f')}" th:text="Women"></span>
+                                                <span th:if="${#strings.startsWith(product.image,'/c')}" th:text="Children"></span>
+                                                <h6><a th:href="@{'/product?sku='+${product.sku}+
+                                                       '&amp;name='+${#strings.replace(product.name, ' ', '-')}}" th:text="${product.name}"></a></h6>
+                                            </div>                                            
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="mid-2">
+                                            <p>
+                                                <label th:if="${product.discount gt 0}" th:text="${product.price}">                                            
+                                                </label>
+                                                <em class="item_price" 
+                                                    th:text="${product.discount gt 0} ? 
+                                                    (${#numbers.formatDecimal(product.price - (product.price * product.discount)/100, 0, 2, 'POINT')} + ' EUR') : (${product.price} + ' EUR')"></em>
+                                            </p>
+                                            <h2>
+                                                <div class="block">                                                
+                                                    <div class="label label-danger" th:if="${product.discount != 0}" th:text="'-' + ${product.discount} + '%'"></div>                                                
+                                                </div>
+                                            </h2>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:remove="${(no.index+1) % 3 == 0 and no.index != 0} ? none : tag" class="clearfix"></div>                         
+                        </div>                          
+                    </div>   
+                    <div class="col-md-9">                           
+                        <div class="pagination-holder clearfix">
+                            <div id="light-pagination" class="pagination" style="margin-top: 10px;"></div>
+                            <div id="left-pagination">                              
+                                <button type="button" id="prevfId" class="btn btn-xs btn-danger" style="margin-bottom: 10px; width:0px; visibility: hidden;">See previous products</button>
+                                <button type="button" id="nextfId" class="btn btn-xs btn-danger" style="margin-bottom: 10px; width:0px; visibility: hidden;">See more products</button>
+                            </div>
+                        </div>                                            
+                        <a id="navigateId" href=""></a>
+                    </div>
+                </div>
+                <script type="text/javascript" th:inline="javascript">
+                    /*<![CDATA[*/
+                    $(function () {
+                    if ([[${productscount}]]) {
+                    $('#light-pagination').pagination({
+                    items: [[${productscount}]],
+                            hrefTextPrefix: '',
+                            hrefTextSuffix: document.location.search,
+                            currentPage: document.location.pathname.substring(document.location.pathname.lastIndexOf("/") + 1),
+                            itemsOnPage: [[${productsperpage}]],
+                            cssStyle: 'light-theme'
+                    });
+                    } else {
+
+                    var page = document.location.pathname.substring(document.location.pathname.lastIndexOf("/") + 1);
+                    if (page == 1) {
+                    document.getElementById('nextfId').style.width = '0px';
+                    document.getElementById('nextfId').style.visibility = 'hidden';
+                    document.getElementById('nextfId').onclick = "";
+                    } else {
+                    document.getElementById('prevfId').style.width = '150px';
+                    document.getElementById('prevfId').style.visibility = 'visible';
+                    document.getElementById('prevfId').onclick = function() {
+                    document.location = 'http://' + document.location.host + '/products/' + (parseInt(page) - 1) + jQuery.query;
+                    };
+                    }
+
+                    if ([[${#lists.size(allproducts)} gt ${productsperpage}]]) {
+                    document.getElementById('nextfId').style.width = '150px';
+                    document.getElementById('nextfId').style.visibility = 'visible';
+                    document.getElementById('nextfId').onclick = function() {
+                    document.location = 'http://' + document.location.host + '/products/' + (parseInt(page) + 1) + jQuery.query;
+                    };
+                    } else {
+                    document.getElementById('nextfId').style.width = '0px';
+                    document.getElementById('nextfId').style.visibility = 'hidden';
+                    document.getElementById('nextfId').onclick = "";
+                    }
+                    }
+                    }
+                    );
+                    /*]]>*/
+                </script>                                                   
+            </div>
+
+        </div>
+        <!--//content-->
+        <!--//footer-->
+        <div class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="col-md-3 footer-middle-in">
+                        <a href="/"><img src="/images/log.png" alt=""/></a>
+                        <p>Explore the trends and buy pieces from the hottest collections, from jackets, jeans and dresses to sports blouses, knitwear, T-shirts and much more - available for you to create the perfect outfit.</p>
+                    </div>
+
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Support and assistance</h6>
+                        <ul class=" in">
+                            <li><a href="404.html">About Us</a></li>
+                            <li><a href="/contact">Payment methods</a></li>
+                            <li><a href="#">Terms and conditions</a></li>
+                            <li><a href="/contact">Delivery options</a></li>
+                        </ul>
+                        <ul class="in in1">
+                            <li><a href="/login">Register</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="wishlist.html">Guarantee</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Tags</h6>
+                        <ul class="tag-in">
+                            <li><a href="#">Shirts</a></li>
+                            <li><a href="#">Coats</a></li>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Pants</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Boots</a></li>
+                        </ul>
+                    </div>
+                    <!--
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Newsletter</h6>
+                        <span>Please enter your email address</span>
+                        <form>
+                            <input type="text" value="E-mail" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                this.value = 'E-mail';
+                                }"/>
+                            <input type="submit" value="Subscribe"/>
+                        </form>
+                    </div>
+                    -->
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+              <div class="footer-bottom">
+                <div class="container">
+                    <ul class="footer-bottom-top">
+                        <!--
+                        <li><a href="#"><img src="images/f1.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f2.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f3.png" class="img-responsive" alt=""/></a></li>
+                        -->
+                    </ul>
+                    <p class="footer-class">&copy; 2025 All rights reserved </p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" style="width: 0px; height: 0px; visibility: hidden;"></button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Shopin</h2>
+                </div>
+                <div class="modal-body">
+                    <p id="msgPrincipalId"></p>                                        
+                    <p id="subMsgId"></p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Thank you for understanding!</h3>
+                </div>
+            </div>
+        </div>        
+        <form id="cartFormId" method="post" th:action="@{/cart}" th:object="${cartItems}" style="width: 0px; height: 0px; visibility: hidden;">
+            <input id="cartContentId" type="hidden" th:field="*{items}" th:value="*{items}"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        <!--//footer-->
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+        <script>
+            document.getElementById("totalCartId").setAttribute("class", cartName + "_total");
+            document.getElementById("emptyCartId").setAttribute("class", cartName + "_empty");
+            if (document.getElementById("cartShelfId") != null) {
+                document.getElementById("cartShelfId").setAttribute("class", "col-md-4 item-grid " + cartName + "_shelfItem");
+            }
+        </script>
+        
+        <script th:inline="javascript">
+                            function cartForm() {                                   
+                            var serialize_items = "";
+                            simpleCart.each(function (item) {
+                            if (serialize_items.indexOf(item.get("msku")) == - 1) {
+                            serialize_items = serialize_items + item.get("msku") + ",";
+                            }
+                            });
+                            if (serialize_items.length > 0) {
+                            serialize_items = serialize_items.substring(0, serialize_items.length - 1);
+                            document.getElementById("cartContentId").value = serialize_items;
+                            document.forms["cartFormId"].submit();
+                            } else {                               
+                            document.getElementById("msgPrincipalId").innerHTML = "Your shopping cart is empty !";
+                            document.getElementById("myBtn").click();
+                            }
+                            }
+         </script>
+        
+        <script src="../../js/simpleCart.min.js"></script>
+        <!-- slide -->
+        <script src="../../js/bootstrap.min.js"></script>
+        <!--light-box-files -->
+        <script src="../../js/jquery.chocolat.js"></script>
+        <link rel="stylesheet" href="../../css/chocolat.css" type="text/css" media="screen" charset="utf-8"/>
+        <!--light-box-files -->
+        <script type="text/javascript" charset="utf-8">
+            $(function () {
+            $('a.picture').Chocolat();
+            });
+        </script>
+        <script src="../../js/jquery.simplePagination.js"></script>
+
+        <script src="../../js/modal.js"></script>
+        <script th:inline="javascript">
+            // <![CDATA[
+            function resetFilters(){
+            var oldQuery = jQuery.query;
+            jQuery.query = jQuery.query.get("search") ? jQuery.query.remove("search") : jQuery.query;
+            jQuery.query = jQuery.query.get("fd") ? jQuery.query.remove("fd") : jQuery.query;
+            jQuery.query = jQuery.query.get("fp") ? jQuery.query.remove("fp") : jQuery.query;
+            jQuery.query = jQuery.query.get("fc") ? jQuery.query.remove("fc") : jQuery.query;
+            jQuery.query = jQuery.query.get("fm") ? jQuery.query.remove("fm") : jQuery.query;
+            if (oldQuery !== jQuery.query) {
+            document.location = "http://" + document.location.host + "/products/1" + jQuery.query;
+            }
+            }
+
+            function bakeURL(discount, maxprice_min, maxprice_max, maxprice_from, maxprice_to, color, sizeit){
+
+            jQuery.query = jQuery.query.get("search") ? jQuery.query.remove("search") : jQuery.query;
+            var root = "http://" + document.location.host + "/products/1";
+            if (discount) {
+            (discount == '0_0') ? document.location = root + jQuery.query.remove("fd") :
+                    document.location = root + jQuery.query.set("fd", discount);
+            }
+
+            if (maxprice_from && maxprice_to){
+            (maxprice_from == maxprice_min && maxprice_to == maxprice_max) ?
+                    document.location = root + jQuery.query.remove("fp") :
+                    document.location = root + jQuery.query.set("fp", maxprice_from + "_" + maxprice_to);
+            }
+
+            if (color){
+            var color_param = jQuery.query.get("fc");
+            if (color_param){
+            if (color_param.indexOf("_") !== - 1) {
+            var found = color_param.indexOf(color);
+            if (found == - 1) {
+            document.getElementById('myBtn').click();
+            } else {
+            if (found == 0){
+            document.location = root + jQuery.query.set("fc", color_param.substring(2));
+            } else {
+            document.location = root + jQuery.query.set("fc", color_param.substring(0, 1));
+            }
+            }
+            } else {
+            if (color_param !== color) {
+            document.location = root + jQuery.query.set("fc", color_param + "_" + color);
+            } else {
+            document.location = root + jQuery.query.remove("fc");
+            }
+            }
+            } else {
+            document.location = root + jQuery.query.set("fc", color);
+            }
+            }
+
+            if (sizeit) {
+            var size_param = jQuery.query.get("fm");
+            if (size_param){
+            if (size_param.indexOf("_") !== - 1) {
+            var left_side = size_param.substring(0, size_param.indexOf("_"));
+            var right_side = size_param.substring(size_param.indexOf("_") + 1);
+            if (left_side !== sizeit && right_side !== sizeit) {
+            document.getElementById('myBtn').click();
+            } else {
+            if (left_side == sizeit){
+            document.location = root + jQuery.query.set("fm", size_param.substring(size_param.indexOf("_") + 1));
+            } else {
+            document.location = root + jQuery.query.set("fm", size_param.substring(0, size_param.indexOf("_")));
+            }
+            }
+            } else {
+            if (size_param !== sizeit) {
+            document.location = root + jQuery.query.set("fm", size_param + "_" + sizeit);
+            } else {
+            document.location = root + jQuery.query.remove("fm");
+            }
+            }
+            } else {
+            document.location = root + jQuery.query.set("fm", sizeit);
+            }
+            }
+            }
+            // ]]>
+        </script>   
+        <script>
+            function logoutJS() {
+            document.forms["logoutForm"].submit();
+            }
+        </script>
+        <form id="logoutForm" th:action="@{/logout}" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </body>
+</html>

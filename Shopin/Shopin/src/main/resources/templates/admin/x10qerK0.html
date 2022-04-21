@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Autentificare administrator</title>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />   
+    </head>
+    <body>        
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">               
+                Scan this code with the application <a href="https://support.google.com/accounts/answer/1066447?hl=en" target="_blank">Google Authenticator</a>. Enter the received verification code below.<br/><br/>
+                <div style="text-align: center;">                    
+                    <img th:src="${qr}" />
+                </div>
+                <form th:action="@{/x10qerK0}" method="post" role="form">
+                    <input id="sc" name="sc" type="hidden" th:value="${sc}"/>
+                    <fieldset>
+                        <h2>Verification code</h2>
+                        <div th:if="${param.error}" class="alert alert-danger">
+                            <strong>Ops!</strong> Invalid verification code.
+                        </div>
+                        <hr class="colorgraph"/>
+                        <div class="form-group">
+                            <input type="text" id="code" name="code" class="form-control input-lg"
+                                   placeholder="Codul de verificare" required="true"/>
+                        </div>
+                        <hr class="colorgraph"/>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <!-- needed for  Cross Site Request Forgery -->
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button class="btn btn-lg btn-success btn-block" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

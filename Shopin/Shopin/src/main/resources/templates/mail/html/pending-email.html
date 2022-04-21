@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Shopin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        Hello,
+        <p th:text="${name}"></p>
+        <p th:if="${name.length() > 50}">
+            Email is longer than 50 characters!
+        </p>
+        <p>  
+            The account was successfully created on
+            <span th:text="${#temporals.format(#temporals.createNow(), 'dd-MMM-yyyy HH:mm')}">today</span>
+        </p>    
+        <p>
+            This link will expire on
+            <span th:text="${expiration}">tomorrow</span>            
+        </p>                   
+
+        You can activate your account by clicking on the following link:
+        <a th:href="${activationlink}"></a>
+            Activation link
+        </p>           
+        <p>
+            Regards, <br />
+            <em>Shopin Team</em>
+        </p>
+    </body>
+</html>

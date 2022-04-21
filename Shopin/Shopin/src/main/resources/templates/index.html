@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Shopin</title>
+        <script th:inline="javascript">
+            cartName = [[${
+            #authentication.name
+            }
+            ]];
+            cartName = cartName.replace(/[^a-zA-Z 0-9]+/g, '');
+            cartName = cartName.replace(/\s/g, '');
+            syncornot = null;
+        </script> 
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <!-- Custom Theme files -->
+        <!--theme-style-->
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template,
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+        <!--theme-style-->
+        <link href="css/style4.css" rel="stylesheet" type="text/css" media="all" />
+        <!--//theme-style-->
+        <script src="js/jquery.min.js"></script>
+    </head>
+    <body>        
+        <!--header-->
+        <div class="header">
+            <div class="container">
+                <div class="head">
+                    <div class=" logo">
+                        <a href="/"><img src="images/logo.png" alt=""/></a>
+                    </div>
+                </div>
+            </div>
+            <div class="header-top">
+                <div class="container">
+                    <div class="col-sm-7 col-md-offset-2  header-login">
+                        <ul>
+                            <li><a href="/login">Login</a></li>
+                            <li><a href="/register">Register</a></li>
+                            <li><a onclick="cartForm();" style="cursor:pointer;">Cart</a></li>
+                            <li>
+                                <div style="color: sienna;" class="vizi">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    Login:
+                                    <strong sec:authorize="!isAuthenticated()">
+                                        <a style="color: tomato;" href="/login">
+                                            guest
+                                        </a>
+                                    </strong>
+                                    <strong sec:authorize="isAuthenticated()">
+                                        <a style="color: tomato;" href="#">
+                                            <span sec:authentication="name"></span>
+                                        </a>
+                                        &nbsp;|&nbsp;
+                                        <a style="color: whitesmoke; cursor:pointer;" onclick="logoutJS();">
+                                            Logout
+                                        </a>
+                                    </strong>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3 header-social">
+                        <ul>
+                            <li><a href="#"><i></i></a></li>
+                            <li><a href="#"><i class="ic1"></i></a></li>
+                            <li><a href="#"><i class="ic3"></i></a></li>                            
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+                <div class="head-top">
+
+                    <div class="col-sm-8 col-md-offset-2 h_menu3">
+                        <nav class="navbar nav_bottom" role="navigation">
+
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header nav_2">
+                                <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
+                                <ul class="nav navbar-nav nav_1">
+                                    <li><a class="color" href="/">Home</a></li>
+
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Women<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=f,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'f' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=f,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Men<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=b,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'b' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=b,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me1.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="dropdown mega-dropdown active">
+                                        <a href="#" class="color1 dropdown-toggle" data-toggle="dropdown">Children<span class="caret"></span></a>
+                                        <div class="dropdown-menu">
+                                            <div class="menu-top">
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=im)}">
+                                                                Clothing
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'im'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=in)}">
+                                                                Footwear
+                                                            </a>
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'in'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <div class="h_nav">
+                                                        <h4>
+                                                            <a class="hrefs" th:href="@{products/1(category=c,range=ac)}">
+                                                                Accessory
+                                                            </a>   
+                                                        </h4>
+                                                        <ul>
+                                                            <th:block th:each="category : ${categories}">
+                                                                <li class="cats" th:if="${category.main == 'c' and category.type == 'ac'}">
+                                                                    <a th:href="@{products/1(category=c,id=${category.id},name=${#strings.replace(category.category, ' ', '-')})}" th:text="${category.category}"/>
+                                                                </li>
+                                                            </th:block>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col1">
+                                                    <img src="images/me2.png" class="img-responsive" alt=""/>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </li>                            
+                                    <li><a class="color3" href="#ancora">Promotions</a></li>
+                                    <li ><a class="color6" href="/contact">Contact Us</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+
+                        </nav>
+                    </div>
+                    <div class="col-sm-2 search-right">
+                        <ul class="heart">                           
+                            <li><a class="play-icon popup-with-zoom-anim vizi" style="font-size: 16px; color: darkslategrey; text-decoration: none;" href="#small-dialog">Search&nbsp;<i class="glyphicon glyphicon-search"> </i></a></li>
+                        </ul>
+                        <div class="cart box_1">
+                            <a onclick="cartForm();" style="cursor:pointer; text-decoration: none !important;">
+                                <div class="total">
+                                    <span id="totalCartId" class="simpleCart_total"></span></div>
+                                <img src="images/cart.png" alt=""/>
+                            </a>
+                            <p><a id="emptyCartId" href="javascript:;" class="simpleCart_empty">Clear cart</a></p>
+
+                        </div>
+                        <div class="clearfix"> </div>
+                        <!-- pop-up-box -->
+                        <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all"/>
+                        <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+                        <!-- //pop-up-box -->
+                        <div id="small-dialog" class="mfp-hide">
+                            <div class="search-top">
+                                <div class="login-search">
+                                    <input type="submit" value="" onclick="document.location = 'http://' + document.location.host + '/products/1?search=' + $('#searchId').val()"/>
+                                    <input type="text" id="searchId" value="Search products ..." onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Search..';
+                                        }"/>		
+                                </div>
+                                <p>Shopin</p>
+                            </div>				
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                            localStorage.removeItem("simpleCart_extra");
+                            $('.popup-with-zoom-anim').magnificPopup({
+                            type: 'inline',
+                                    fixedContentPos: false,
+                                    fixedBgPos: true,
+                                    overflowY: 'auto',
+                                    closeBtnInside: true,
+                                    preloader: false,
+                                    midClick: true,
+                                    removalDelay: 300,
+                                    mainClass: 'my-mfp-zoom-in'
+                            });
+                            });
+                        </script>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!--banner-->
+        <div class="banner">
+            <div class="container">
+                <section class="rw-wrapper">
+                    <h1 class="rw-sentence">
+                        <span>Shopin</span>
+                        <div class="rw-words rw-words-1">
+                            <span>Fashion for everyone</span>
+                            <span>Fashion for everyone</span>
+                            <span>Fashion for everyone</span>
+                            <span>Fashion for everyone</span>
+                            <span>Fashion for everyone</span>
+                            <span>Fashion for everyone</span>
+                        </div>
+                        <div class="rw-words rw-words-2">
+                            <span>Try it now</span>
+                            <span>Try it now</span>
+                            <span>Try it now</span>
+                            <span>Try it now</span>
+                            <span>Try it now</span>
+                            <span>Try it now</span>
+                        </div>
+                    </h1>
+                </section>
+            </div>
+        </div>
+        <!--content-->
+        <div class="content">
+            <div class="container">
+                <div class="content-top">
+                    <div class="col-md-6 col-md">
+                        <div class="col-1">
+                            <a href="products/1" class="b-link-stroke b-animate-go  thickbox">
+                                <img src="images/pi.jpg" class="img-responsive" alt=""/><div class="b-wrapper1 long-img">
+                                    <p class="b-animate b-from-right b-delay03" th:text="${productscount}+' '+PRODUCTS"></p
+                                    ><label class="b-animate b-from-right b-delay03 "></label>
+                                    <h3 class="b-animate b-from-left b-delay03 ">Check!</h3></div></a>
+                            <!---<a href="single.html"><img src="images/pi.jpg" class="img-responsive" alt=""></a>-->
+                        </div>
+                        <div class="col-2">
+                            <span>Lorem Ipsum</span>
+                            <h2><a href="#ancora">Lorem Ipsum</a></h2>
+                            <p>Lorem Ipsum</p>
+                            <a href="#ancora" class="buy-now">Lorem Ipsum</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md1">
+                        <div class="col-3">
+                            <a href="products/1?category=b"><img src="images/pi1.jpg" class="img-responsive" alt=""/>
+                                <div class="col-pic">
+                                    <p>Lorem Ipsum</p>
+                                    <label></label>
+                                    <h5>Men</h5>
+                                </div></a>
+                        </div>
+                        <div class="col-3">
+                            <a href="products/1?category=c"><img src="images/pi2.jpg" class="img-responsive" alt=""/>
+                                <div class="col-pic">
+                                    <p>Lorem Ipsum</p>
+                                    <label></label>
+                                    <h5>Children</h5>
+                                </div></a>
+                        </div>
+                        <div class="col-3">
+                            <a href="products/1?category=f"><img src="images/pi3.jpg" class="img-responsive" alt=""/>
+                                <div class="col-pic">
+                                    <p>Lorem Ipsum</p>
+                                    <label></label>
+                                    <h5>Women</h5>
+                                </div></a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!--products-->
+                <div class="col-md-12">
+                    <h3><a id="ancora">Trend products</a></h3>
+                    <label class="line"></label>
+                    <div th:each="product, no : ${firstproducts}">
+                        <div th:remove="${no.index % 3 == 0} ? none : tag" class="mid-popular">
+                            <div id="cartShelfId" class="col-md-4 item-grid simpleCart_shelfItem">
+                                <div class="mid-pop">
+                                    <div class="pro-img">
+                                        <img th:src="@{images__${product.image}____${product.sku}__/main_shopin.jpg}" class="img-responsive" style="z-index: 1;" alt=""/>
+                                        <h4>
+                                            <div class="label label-danger" th:if="${product.discount != 0}" th:text="'-' + ${product.discount} + '%'" style="position: absolute; top:0; left:0;">
+                                            </div>
+                                        </h4>
+                                        <div class="zoom-icon">
+                                            <a th:href="@{images__${product.image}____${product.sku}__/main_shopin.jpg}"
+                                               rel="title"
+                                               class="picture b-link-stripe b-animate-go thickbox">
+                                                <i class="glyphicon glyphicon-search icon "></i>
+                                            </a>
+                                            <a th:href="@{'/product?sku='+${product.sku}+
+                                               '&amp;name='+${#strings.replace(product.name, ' ', '-')}}"><i class="glyphicon glyphicon-menu-right icon"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="mid-1">
+                                        <div class="women">
+                                            <div class="women-top">
+                                                <span th:if="${#strings.startsWith(product.image,'/b')}" th:text="Man"></span>
+                                                <span th:if="${#strings.startsWith(product.image,'/f')}" th:text="Women"></span>
+                                                <span th:if="${#strings.startsWith(product.image,'/c')}" th:text="Children"></span>
+                                                <h6><a href="product.html" th:text="${product.name}"></a></h6>
+                                            </div>                                            
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="mid-2">
+                                            <p>
+                                                <label th:if="${product.discount gt 0}" th:text="${product.price}">
+                                                </label>
+                                                <em class="item_price"
+                                                    th:text="${product.discount gt 0} ?
+                                                    (${#numbers.formatDecimal(product.price - (product.price * product.discount)/100, 0, 2, 'POINT')} + ' EUR') : (${product.price} + ' EUR')"></em>
+                                            </p>
+                                            <h4>
+                                                <div class="block">
+                                                    <div class="label label-danger" th:if="${product.discount != 0}" th:text="'-' + ${product.discount} + '%'"></div>
+                                                </div>
+                                            </h4>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:remove="${(no.index+1) % 3 == 0 and no.index != 0} ? none : tag" class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--//products-->
+
+            </div>
+
+        </div>
+        <!--//content-->
+        <!--//footer-->
+        <div class="footer">
+            <div class="footer-middle">
+                <div class="container">
+                    <div class="col-md-3 footer-middle-in">
+                        <a href="/"><img src="images/log.png" alt=""/></a>
+                        <p>Explore the trends and buy pieces from the hottest collections, from jackets, jeans and dresses to sports blouses, knitwear, T-shirts and much more - available for you to create the perfect outfit.</p>
+                    </div>
+
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Support and assistance</h6>
+                        <ul class=" in">
+                            <li><a href="404.html">About Us</a></li>
+                            <li><a href="/contact">Payment methods</a></li>
+                            <li><a href="#">Terms and conditions</a></li>
+                            <li><a href="/contact">Delivery options</a></li>
+                        </ul>
+                        <ul class="in in1">
+                            <li><a href="/login">Register</a></li>
+                            <li><a href="/contact">Contact</a></li>
+                            <li><a href="wishlist.html">Guarantee</a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Tags</h6>
+                        <ul class="tag-in">
+                            <li><a href="#">Shirts</a></li>
+                            <li><a href="#">Coats</a></li>
+                            <li><a href="#">Dresses</a></li>
+                            <li><a href="#">T-shirts</a></li>
+                            <li><a href="#">Pants</a></li>
+                            <li><a href="#">Shoes</a></li>
+                            <li><a href="#">Boots</a></li>
+                        </ul>
+                    </div>
+                    <!--
+                    <div class="col-md-3 footer-middle-in">
+                        <h6>Newsletter</h6>
+                        <span>Please enter your email address</span>
+                        <form>
+                            <input type="text" value="E-mail" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                this.value = 'E-mail';
+                                }"/>
+                            <input type="submit" value="Subscribe"/>
+                        </form>
+                    </div>
+                    -->
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <ul class="footer-bottom-top">
+                        <!--
+                        <li><a href="#"><img src="images/f1.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f2.png" class="img-responsive" alt=""/></a></li>
+                        <li><a href="#"><img src="images/f3.png" class="img-responsive" alt=""/></a></li>
+                        -->
+                    </ul>
+                    <p class="footer-class">&copy; 2025 All rights reserved </p>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+        <form id="cartFormId" method="post" th:action="@{/cart}" th:object="${cartItems}" style="width: 0px; height: 0px; visibility: hidden;">
+            <input id="cartContentId" type="hidden" th:field="*{items}" th:value="*{items}"/>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        <!--//footer-->
+        <script>
+            document.getElementById("totalCartId").setAttribute("class", cartName + "_total");
+            document.getElementById("emptyCartId").setAttribute("class", cartName + "_empty");
+            //  document.getElementById("cartShelfId").setAttribute("class", "col-md-4 item-grid " + cartName + "_shelfItem");
+        </script>
+        <script th:inline="javascript">
+            function cartForm() {
+            var serialize_items = "";
+            simpleCart.each(function (item) {
+            if (serialize_items.indexOf(item.get("msku")) == - 1) {
+            serialize_items = serialize_items + item.get("msku") + ",";
+            }
+            });
+            if (serialize_items.length > 0) {
+            serialize_items = serialize_items.substring(0, serialize_items.length - 1);
+            document.getElementById("cartContentId").value = serialize_items;
+            document.forms["cartFormId"].submit();
+            } else {
+            document.getElementById("msgPrincipalId").innerHTML = "Your shopping cart is empty !";
+            document.getElementById("myBtn").click();
+            }
+            }
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js/simpleCart.min.js"></script>
+        <!-- slide -->
+        <script src="js/bootstrap.min.js"></script>
+        <!--light-box-files -->
+        <script src="js/jquery.chocolat.js"></script>
+        <link rel="stylesheet" href="css/chocolat.css" type="text/css" media="screen" charset="utf-8"/>
+        <!--light-box-files -->
+        <script type="text/javascript" charset="utf-8">
+            $(function () {
+            $('a.picture').Chocolat();
+            });
+        </script>
+        <script>
+            function logoutJS() {
+            document.forms["logoutForm"].submit();
+            }
+        </script>
+        <form id="logoutForm" th:action="@{/logout}" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+        
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn" style="width: 0px; height: 0px; visibility: hidden;"></button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Shopin</h2>
+                </div>
+                <div class="modal-body">
+                    <p id="msgPrincipalId"></p>                                        
+                    <p id="subMsgId"></p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Thank you for understanding!</h3>
+                </div>
+            </div>
+        </div>
+        <script src="js/modal.js"></script> 
+    </body>
+</html>

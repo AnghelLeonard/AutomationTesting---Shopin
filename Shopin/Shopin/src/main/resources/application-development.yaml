@@ -1,0 +1,13 @@
+# Path to project
+project:
+    base-dir: file:///...
+
+# Templates reloading during development
+# Static resources reloading during development
+spring:
+    thymeleaf:
+        prefix: ${project.base-dir}/Shopin/src/main/resources/templates/
+        cache: false
+    resources:
+        static-locations: ${project.base-dir}/artifacts/
+        cache-period: 0

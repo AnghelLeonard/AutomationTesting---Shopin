@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:remove="all">Shopin</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        Hello,
+
+        <p>Thank you for ordering at Shopin. Your order summary is listed below:</p>
+        <hr/>
+        <h2 th:text="'Comanda ' + ${nr}"></h2>
+        <hr/>
+        <h3 th:text="'E-mail cumparator: ' + ${email}"></h3>
+        <hr/>
+        <h2>List of ordered products:</h2>
+        <h4 th:utext="${order}"></h4>        
+        <hr/>
+        <h2>Delivery address:</h2>
+        <h4 th:utext="${addressl}"></h4>
+        <hr/>
+        <h2>Billing address:</h2>
+        <h4 th:utext="${addressf}"></h4>
+        <hr/>
+        <span th:text="${#temporals.format(#temporals.createNow(), 'dd-MMM-yyyy HH:mm')}">-</span>
+        <hr/>
+        <p>The Shopin team wishes you a nice day.</p>
+    </body>
+</html>

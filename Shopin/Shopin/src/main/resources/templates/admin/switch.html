@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>Administration page</title>        
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <script src="../js/jquery.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/bootbox.min.js"></script>        
+    </head>
+    <body>  
+        <a href="/x10qerK0/master">
+            <button type="button" style="font-size: 20px; color: white; background-color: blue;">Back to the main page</button>
+        </a>       
+        <input id="successId" style="font-size: 18px; color: blue; text-align: center;" type="text" name="success" th:value="${success}" disabled="true" readonly="readonly"/>        
+        <form id="addProductFormId" th:action="@{/x10qerK0/switch}" method="post">            
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+            <input id="statusId" name="status" type="hidden" th:value="${status}"/>
+            <table align="center">
+                <tr colspan="2">                
+                    <td colspan="2"><h2>Enter the user's email address</h2></td>                
+                </tr>             
+                <tr>               
+                    <td align="center">
+                        E-mail: <input id="emailId" type="email" th:name="email" required="true" th:value="${email}" style="width: 300px;"/>                    
+                    </td>    
+                    <td>
+                        <button type="submit" onclick="setStatus(false)" style="font-size: 20px; color: white; background-color: red;">Disable user</button>
+                    </td>    
+                    <td>
+                        <button type="submit" onclick="setStatus(true)" style="font-size: 20px; color: white; background-color: red;">Enable user</button>
+                    </td>    
+                </tr>    
+            </table>
+        </form>
+        <script>
+            function setStatus(status) {
+                document.getElementById("statusId").value = status;
+                document.getElementById("successId").value = "WAIT";
+            }
+        </script>
+    </body>
+</html>

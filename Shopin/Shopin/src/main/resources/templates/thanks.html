@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shopin</title>
+        <script th:inline="javascript">
+            cartName = [[${
+            #authentication.name
+            }
+            ]];
+            cartName = cartName.replace(/[^a-zA-Z 0-9]+/g, '');
+            cartName = cartName.replace(/\s/g, '');
+            syncornot = null;
+        </script> 
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />       
+        <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />	
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Shopin Responsive web template, Bootstrap Web Templates, Flat Web Templates, AndroId Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />        
+
+    </head>
+    <body>                
+        <div class="banner-top">
+            <div class="container">
+                <h1>Thank you for your order</h1>
+                <em></em>
+                <h2><a href="/">Home</a></h2>
+            </div>
+        </div>      
+        <div class="container">
+            <div class="four">
+                <h3>Order success</h3>
+                <p>We have send you an e-mail with your order summary. Thank you!</p>
+                <a href="/" class="hvr-skew-backward">Back To Home</a>
+            </div>
+        </div>
+        <script>
+            localStorage.removeItem(cartName + "_items");
+            localStorage.removeItem("simpleCart_extra");
+        </script>
+    </body>
+</html>
